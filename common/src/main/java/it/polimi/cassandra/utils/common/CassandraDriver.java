@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.ResultSet;
-import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
 
 import it.polimi.cassandra.utils.common.model.Attribute;
@@ -24,11 +23,11 @@ public class CassandraDriver {
 
     private Session session;
 
-    public void connect(String contactPoint, Integer port) {
+    public void connect(String contactPoint, Integer port, String user, String password) {
 
         logger.info(contactPoint + " " + port);
         cluster = Cluster.builder().addContactPoint(contactPoint).withPort(port.intValue())
-                .withCredentials("mik", "polimi").build();
+                .withCredentials(user, password).build();
 
         logger.info("Connected to cluster: {}", cluster.getMetadata().getClusterName());
         logger.info("Connected to cluster: {}", cluster.getMetadata().getClusterName());
@@ -67,12 +66,12 @@ public class CassandraDriver {
 
     }
 
-    public void loadData(String keyspace, Dataset table, String csvFile) {
+    public void loadData(String keyspace, Dataset table, String csvDataFile) {
         String insertStatement;
         String line = "";
         String cvsSplitBy = ",";
 
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(csvDataFile))) {
 
             while ((line = br.readLine()) != null) {
 
@@ -118,7 +117,7 @@ public class CassandraDriver {
 
     }
 
-    public ResultSet readCassandraTable(String keyspace, String table) {
+    public ResultSet retrieveCassandraTable(String keyspace, String table) {
         ResultSet toReturn = session.execute("SELECT * FROM " + keyspace + "." + table + ";");
 
         return toReturn;

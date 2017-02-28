@@ -1,10 +1,23 @@
 package it.polimi.cassandra.utils.common.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class StorageSystem extends DIANode{
 	
+    public Boolean getManaged() {
+        return managed;
+    }
+
+    public void setManaged(Boolean managed) {
+        this.managed = managed;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     private StorageSystemType targetTech;
 
     private Boolean managed;
@@ -17,24 +30,37 @@ public class StorageSystem extends DIANode{
         this.targetTech = targetTech;
     }
 
-    private String cassandraClusterContactPoint;
+    private String clusterContactPoint;
+    
+    private String userId;
+
+    private String password;
+
 	
-	private Integer cassandraClusterContactPort;
+	public String getPassword() {
+        return password;
+    }
 
-	public String getCassandraClusterContactPoint() {
-		return cassandraClusterContactPoint;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    private Integer clusterContactPort;
+
+	public String getClusterContactPoint() {
+		return clusterContactPoint;
 	}
 
-	public Integer getCassandraClusterContactPort() {
-		return cassandraClusterContactPort;
+	public Integer getClusterContactPort() {
+		return clusterContactPort;
 	}
 
-	public void setCassandraClusterContactPoint(String cassandraClusterContactPoint) {
-		this.cassandraClusterContactPoint = cassandraClusterContactPoint;
+	public void setClusterContactPoint(String clusterContactPoint) {
+		this.clusterContactPoint = clusterContactPoint;
 	}
 
-	public void setCassandraClusterContactPort(Integer cassandraClusterContactPort) {
-		this.cassandraClusterContactPort = cassandraClusterContactPort;
+	public void setClusterContactPort(Integer clusterContactPort) {
+		this.clusterContactPort = clusterContactPort;
 	}
 
 	public StorageSystem(){

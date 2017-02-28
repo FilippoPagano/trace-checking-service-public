@@ -1,4 +1,4 @@
-package model;
+package it.polimi.cassandra.utils.tracechecking;
 
 import java.util.ArrayList;
 import java.util.List;

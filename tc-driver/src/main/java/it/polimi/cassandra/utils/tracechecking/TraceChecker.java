@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import it.polimi.cassandra.utils.common.model.DIA;
 import it.polimi.cassandra.utils.common.model.Permission;
 
 public class TraceChecker {

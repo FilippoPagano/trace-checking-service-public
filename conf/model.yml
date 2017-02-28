@@ -3,14 +3,16 @@ diaName: myDia
 elements:
   - !storageNode 
     id: myCassandraCluster
-    cassandraClusterContactPoint: 10.10.10.100
-    cassandraClusterContactPort: 9042  
+    clusterContactPoint: 10.10.10.100
+    clusterContactPort: 9042  
+    userId: tcers
+    password: polimi
     targetTech: CASSANDRA
     isManaged: TRUE
   - !computeNode 
     id: myStormCluster
     targetTech: STORM
-    isManaged: TRUE
+    isManaged: FALSE
   - !dataset
     id: myDataset
     replicationFactor: 1

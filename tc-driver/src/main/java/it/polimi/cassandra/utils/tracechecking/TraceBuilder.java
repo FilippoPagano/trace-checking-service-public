@@ -16,12 +16,12 @@ public class TraceBuilder {
     }
 
     public String createTraceCheckingLogFromCassandraTracing(String cassandraClusterContactPoint,
-            Integer cassandraClusterContactPort) {
+            Integer cassandraClusterContactPort, String user, String password) {
         CassandraDriver driver = new CassandraDriver();
 
-        driver.connect(cassandraClusterContactPoint, cassandraClusterContactPort);
+        driver.connect(cassandraClusterContactPoint, cassandraClusterContactPort, user, password);
 
-        ResultSet traces = driver.readCassandraTable("system_traces", "sessions");
+        ResultSet traces = driver.retrieveCassandraTable("system_traces", "sessions");
         
         driver.close();
         FileWriter fw;

@@ -24,7 +24,7 @@ public class ModelLoader {
     
     public static void main(String[] args){
         try {
-            DIA dia = ModelLoader.loadInputModelFromFile("/Users/michele/workspace/cassandra-utils/conf/initializer-example.yml");
+            DIA dia = ModelLoader.loadInputModelFromFile("/Users/michele/workspace/cassandra-utils/conf/model.yml");
             System.out.println(dia.getDiaName() + "\n");
             
             for(DIAElement e : dia.getElements()){

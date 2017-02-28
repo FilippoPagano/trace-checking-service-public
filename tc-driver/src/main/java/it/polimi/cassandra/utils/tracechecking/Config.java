@@ -20,7 +20,6 @@ public class Config {
 
             input = new FileInputStream(pathToConfigFile);
 
-            // load a properties file
             prop.load(input);
             
             isLoaded = true;

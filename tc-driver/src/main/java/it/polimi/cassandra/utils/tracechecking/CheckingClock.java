@@ -35,14 +35,16 @@ public class CheckingClock {
             this.toControl = storage;
             this.permissions = permissions;
         }
-        
+       
         public void run() {
                         
             TraceBuilder lc = new TraceBuilder();
             
             String pathToTrace = lc.createTraceCheckingLogFromCassandraTracing(
-                    toControl.getCassandraClusterContactPoint(),
-                    toControl.getCassandraClusterContactPort());
+                    toControl.getClusterContactPoint(),
+                    toControl.getClusterContactPort(),
+                    toControl.getUserId(),
+                    toControl.getPassword());
             
             TraceChecker tc = new TraceChecker();
             

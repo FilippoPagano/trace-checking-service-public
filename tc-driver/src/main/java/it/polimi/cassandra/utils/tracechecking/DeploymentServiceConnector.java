@@ -7,7 +7,6 @@ import it.polimi.cassandra.utils.common.model.ComputeNode;
 import it.polimi.cassandra.utils.common.model.DIA;
 import it.polimi.cassandra.utils.common.model.DIAElement;
 import it.polimi.cassandra.utils.common.model.StorageSystem;
-import model.VmsCluster;
 
 public class DeploymentServiceConnector {
     

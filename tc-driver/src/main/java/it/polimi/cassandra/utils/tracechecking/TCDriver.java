@@ -2,13 +2,9 @@ package it.polimi.cassandra.utils.tracechecking;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
-import java.util.TimerTask;
-
 import it.polimi.cassandra.utils.common.ModelLoader;
 import it.polimi.cassandra.utils.common.model.DIA;
 import it.polimi.cassandra.utils.common.model.StorageSystem;
-import model.VmsCluster;
 
 public class TCDriver {
 
