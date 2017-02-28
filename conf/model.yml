@@ -1,0 +1,40 @@
+--- !!it.polimi.cassandra.utils.common.model.DIA
+diaName: myDia
+elements:
+  - !storageNode 
+    id: myCassandraCluster
+    cassandraClusterContactPoint: 10.10.10.100
+    cassandraClusterContactPort: 9042  
+    targetTech: CASSANDRA
+    isManaged: TRUE
+  - !computeNode 
+    id: myStormCluster
+    targetTech: STORM
+    isManaged: TRUE
+  - !dataset
+    id: myDataset
+    replicationFactor: 1
+    providedBy: myCassandraCluster
+    attributes:
+      - id: Id
+        isKey: true
+        type: int
+      - id: Zip
+        isQuasiIdentifier: true
+        type: text
+      - id: Age 
+        isQuasiIdentifier: true
+        type: int
+      - id: Nationality
+        type: text
+      - id: Problem 
+        isSensitive: true
+        type: text
+  - !permission
+    id: myStormClusterCanAccessMyDataset
+    userCluster: myStormCluster
+    protectedElement: Id
+    protectionLevel: attribute
+    validityStartTime: 2001-09-09T01:46:40Z
+    validityEndTime: 2001-09-10T01:46:40Z
+    actionType: READ
