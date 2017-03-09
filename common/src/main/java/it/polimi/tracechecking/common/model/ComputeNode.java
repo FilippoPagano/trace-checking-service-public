@@ -2,7 +2,7 @@ package it.polimi.tracechecking.common.model;
 
 import java.util.List;
 
-public class ComputeNode extends DIANode {
+public class ComputeNode extends DIAElement {
 
     private ComputeTechType targetTech;
     

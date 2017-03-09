@@ -3,6 +3,8 @@ package it.polimi.tracechecking.common.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.polimi.tracecheking.common.exception.DIAElementNotFoundException;
+
 public class DIA {
     
     private String diaName;
@@ -90,6 +92,11 @@ public class DIA {
         return null;
     }
     
+    public List<Permission> getElementPermissions(DIAElement element){
+
+        return null;
+    }
+    
     public Dataset getDataset(String datasetId){
         for(Dataset d: this.getDatasets()){
             if(datasetId.equals(d.getId())){
@@ -132,19 +139,29 @@ public class DIA {
         return null;
     }
     
-    public List<StorageSystem> getStorageSystemWithPermission(){
+    public List<StorageSystem> getStorageSystemWithPermission() throws DIAElementNotFoundException {
         
         List<StorageSystem> toReturn = new ArrayList<StorageSystem>();
         
         for(Permission p: this.getPermissions()){
-            if(p.getProtectionLevel().equals("attribute")){
+            if(this.getDiaElement(p.getProtectedElement()) instanceof Attribute){
                 toReturn.add(this.getStorageSystem(this.getDatasetFromAttribute(p.getProtectedElement()).getProvidedBy()));
-            }else{
+            }else if(this.getDiaElement(p.getProtectedElement()) instanceof Dataset){
                 toReturn.add(this.getStorageSystem(this.getDataset(p.getProtectedElement()).getProvidedBy()));
             }
         }
         
         return toReturn;
+    }
+    
+    public DIAElement getDiaElement(String elementId) throws DIAElementNotFoundException {
+        for(DIAElement e: this.elements){
+            if(e.getId().equals(elementId))
+                return e;
+        }
+        
+        throw new DIAElementNotFoundException("DIAElement with id: " + elementId + "has not been found.");
+        
     }
     
 
