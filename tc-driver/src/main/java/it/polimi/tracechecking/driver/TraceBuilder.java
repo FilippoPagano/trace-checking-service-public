@@ -10,6 +10,7 @@ import com.datastax.driver.core.Row;
 import it.polimi.tracechecking.initializer.CassandraDriver;
 
 
+
 public class TraceBuilder {
 
     public static void main(String[] args) {

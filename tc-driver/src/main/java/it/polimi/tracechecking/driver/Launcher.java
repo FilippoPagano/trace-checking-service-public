@@ -15,10 +15,15 @@ public class Launcher {
         try {
             DIA dia = ModelLoader.loadInputModelFromFile(Config.getProperty(Config.PATH_TO_MODEL));
 
+            
+            //TO-DO: add initialization and launching of DeploymentServiceConnector
+            
+            /*
             DeploymentServiceConnector ds = new DeploymentServiceConnector();
             ds.connect("127.0.0.1", 8081);
             List<VmsCluster> clusters = ds.getClusters(dia);
             ds.close();
+            */
             
             // in questo prototipo lanciamo direttamente un tcdriver per il nodo due in quanto assumiamo che
             // sia un nodo cassandra e che esista un permesso su questo nodo. Ovviamente va generalizzato
