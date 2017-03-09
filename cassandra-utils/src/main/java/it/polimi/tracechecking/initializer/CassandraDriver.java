@@ -1,4 +1,4 @@
-package it.polimi.tracechecking.common;
+package it.polimi.tracechecking.initializer;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

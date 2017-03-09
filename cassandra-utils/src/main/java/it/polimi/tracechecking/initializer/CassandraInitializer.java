@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Session;
 
-import it.polimi.tracechecking.common.CassandraDriver;
 import it.polimi.tracechecking.common.ModelLoader;
 import it.polimi.tracechecking.common.model.DIA;
 import it.polimi.tracechecking.common.model.DIAElement;

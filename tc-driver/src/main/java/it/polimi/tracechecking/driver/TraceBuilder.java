@@ -7,7 +7,8 @@ import java.util.Map;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 
-import it.polimi.tracechecking.common.CassandraDriver;
+import it.polimi.tracechecking.initializer.CassandraDriver;
+
 
 public class TraceBuilder {
 
