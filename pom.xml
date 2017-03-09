@@ -3,15 +3,17 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>it.polimi</groupId>
-	<artifactId>cassandra.utils</artifactId>
+	<artifactId>tracechecking</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>cassandra-utils</name>
+	<name>trace-checking-service</name>
 	<description>A set of utility modules for working with Apache Cassandra.</description>
 	<modules>
-		<module>initializer</module>
-		<module>cassandra-tc-driver</module>
+		
+		
 		<module>common</module>
+		<module>tc-driver</module>
+		<module>cassandra-utils</module>
 	</modules>
 
 	<dependencyManagement>

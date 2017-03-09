@@ -4,10 +4,10 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>it.polimi</groupId>
-    <artifactId>cassandra.utils</artifactId>
+    <artifactId>tracechecking</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>it.polimi.cassandra.utils</groupId>
+  <groupId>it.polimi.tracechecking</groupId>
   <artifactId>common</artifactId>
   <name>common</name>
   <url>http://maven.apache.org</url>
