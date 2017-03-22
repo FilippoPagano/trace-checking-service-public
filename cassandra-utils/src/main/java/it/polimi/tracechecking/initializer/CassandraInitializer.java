@@ -23,15 +23,14 @@ public class CassandraInitializer {
     private static final Logger logger = LoggerFactory.getLogger(CassandraInitializer.class);
 
     public static void main(String[] args) throws IOException {
-        CassandraDriver cassandra = new CassandraDriver();
         DIA dia = ModelLoader
-                .loadInputModelFromFile("/Users/michele/workspace/cassandra-utils/conf/model.yml");
+                .loadInputModelFromFile("/Users/michele/workspace/trace-checking-service/conf/model.yml");
         Cluster cluster;
 
         Session session;
 
-        logger.info("127.0.0.1" + " " + 9042);
-        cluster = Cluster.builder().addContactPoint("127.0.0.1").withPort(9042).withCredentials("mik", "polimi")
+        logger.info("109.231.122.225" + " " + 9042);
+        cluster = Cluster.builder().addContactPoint("109.231.122.225").withPort(9042)
                 .build();
 
         logger.info("Connected to cluster: {}", cluster.getMetadata().getClusterName());
@@ -83,7 +82,7 @@ public class CassandraInitializer {
             if (table instanceof Dataset) {
                 Dataset s = (Dataset) table;
                 try (BufferedReader br = new BufferedReader(
-                        new FileReader("/Users/michele/workspace/cassandra-utils/conf/sampleMedicalData.csv"))) {
+                        new FileReader("/Users/michele/workspace/trace-checking-service/conf/sampleMedicalData.csv"))) {
 
                     while ((line = br.readLine()) != null) {
 
@@ -118,6 +117,7 @@ public class CassandraInitializer {
                                     insertStatement = insertStatement.concat(row[j] + ");");
                                 }
                             }
+                            System.out.println(insertStatement);
                         }
                         session.execute(insertStatement);
                         

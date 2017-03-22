@@ -1,0 +1,14 @@
+---
+- name: vagrant
+  box: ubuntu/trusty64
+  ram: 1024
+  cpus: 1
+  ip: 10.10.10.100
+  shell:
+    - sudo add-apt-repository ppa:webupd8team/java
+    - sudo apt-get update
+    - sudo apt-get install -y oracle-java8-installer
+    - wget http://apache.panu.it/cassandra/3.10/apache-cassandra-3.10-bin.tar.gz 
+    - tar -xvzf http://apache.panu.it/cassandra/3.10/apache-cassandra-3.10-bin.tar.gz 
+...
+

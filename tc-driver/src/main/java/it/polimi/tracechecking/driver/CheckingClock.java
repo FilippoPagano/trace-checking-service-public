@@ -18,22 +18,22 @@ public class CheckingClock {
     private static final Logger journal = LoggerFactory
             .getLogger(CheckingClock.class);
     
-    public CheckingClock(int timeStepDurationInMinutes, DIAElement element, List<Permission> permissions) {
+    public CheckingClock(int timeStepDurationInMinutes, StorageSystem storage, List<Permission> permissions) {
         timer = new Timer();
         journal.info("Here is the adaptation clock!");
         
 
-        timer.scheduleAtFixedRate(new ControllerLauncher(element, permissions), 1000, timeStepDurationInMinutes*60*1000);
+        timer.scheduleAtFixedRate(new ControllerLauncher(storage, permissions), 1000, timeStepDurationInMinutes*60*1000);
 
     }
 
     class ControllerLauncher extends TimerTask {
         
-        private DIAElement toControl;
+        private StorageSystem toControl;
         private List<Permission> permissions;
         
-        public ControllerLauncher(DIAElement element, List<Permission> permissions){
-            this.toControl = element;
+        public ControllerLauncher(StorageSystem storage, List<Permission> permissions){
+            this.toControl = storage;
             this.permissions = permissions;
         }
        

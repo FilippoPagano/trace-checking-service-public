@@ -38,7 +38,7 @@ public class Launcher {
                     if(s.getManaged()){
                         if(s.getTargetTech().equals(StorageSystemType.CASSANDRA)) {
                             new CheckingClock(Integer.parseInt(Config.getProperty(Config.INTERVAL_BETWEEN_TC_RUN)), s,
-                                    dia.getPermissions());
+                                    dia.getStorageSystemPermissions(s));
                         }
                         else if(!s.getTargetTech().equals(StorageSystemType.CASSANDRA)){
                             logger.info("Storage platform " + s.getTargetTech() + "is currently not supported");

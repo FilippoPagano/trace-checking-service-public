@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>it.polimi</groupId>
 	<artifactId>tracechecking</artifactId>
@@ -10,14 +9,15 @@
 	<description>A set of utility modules for working with Apache Cassandra.</description>
 
 	<properties>
-		<guava.version>21.0</guava.version>
+		<guava.version>19.0</guava.version>
 	</properties>
 
 	<modules>
 		<module>common</module>
 		<module>tc-driver</module>
 		<module>cassandra-utils</module>
-	</modules>
+    <module>hdfs-logging-library</module>
+  </modules>
 
 	<dependencyManagement>
 		<dependencies>
@@ -57,7 +57,7 @@
 			<dependency>
 				<groupId>com.datastax.cassandra</groupId>
 				<artifactId>cassandra-driver-core</artifactId>
-				<version>3.1.0</version>
+				<version>3.1.4</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

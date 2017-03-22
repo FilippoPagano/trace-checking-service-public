@@ -8,11 +8,11 @@ elements:
     userId: tcers
     password: polimi
     targetTech: CASSANDRA
-    isManaged: TRUE
+    managed: TRUE
   - !computeNode 
     id: myStormCluster
     targetTech: STORM
-    isManaged: FALSE
+    managed: FALSE
   - !dataset
     id: myDataset
     replicationFactor: 1

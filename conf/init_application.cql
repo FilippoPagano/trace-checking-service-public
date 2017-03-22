@@ -1,27 +1,22 @@
+DROP KEYSPACE myDataset_keyspace;
+tracing off;
+TRUNCATE system_traces.sessions;
+TRUNCATE system_traces.events;
+
 CREATE USER tcers WITH PASSWORD 'polimi' SUPERUSER;
 
 
-CREATE KEYSPACE application1
+CREATE KEYSPACE myDataset_keyspace
            WITH replication = {'class': 'SimpleStrategy', 'replication_factor' : 1};
 
-USE application1;
+USE myDataset_keyspace;
 
-CREATE TABLE table1 (
-    Id uuid,
-    Race text,
-    Birth date,
-    Gender text,
+CREATE TABLE myDataset_keyspace.mydataset (
+    Id int,
     Zip text,
-    RegistrationDate timestamp,
+    Age int,
+    Nationality text,
     Problem text,
     PRIMARY KEY (Id)
 );
-
-CREATE TABLE application1.table1 (
-    Name text,
-    Birth date,
-    Gender text,
-    Zip text,
-    Address text,
-    PRIMARY KEY (Name)
-);
+tracing on;

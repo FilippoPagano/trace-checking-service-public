@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>it.polimi</groupId>
+    <artifactId>tracechecking</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <groupId>it.polimi.tracechecking</groupId>
+  <artifactId>hdfs-logging-library</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>hdfs-logging-library</name>
+  <url>http://maven.apache.org</url>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+	<dependency>
+	    <groupId>org.apache.hadoop</groupId>
+	    <artifactId>hadoop-hdfs</artifactId>
+	    <version>2.6.5</version>
+	</dependency>
+<dependency>
+    <groupId>org.apache.hadoop</groupId>
+    <artifactId>hadoop-client</artifactId>
+    <version>2.6.5</version>
+</dependency>
+
+<dependency>
+    <groupId>org.apache.spark</groupId>
+    <artifactId>spark-core_2.11</artifactId>
+    <version>1.4.1</version>
+</dependency>
+
+	
+  </dependencies>
+</project>

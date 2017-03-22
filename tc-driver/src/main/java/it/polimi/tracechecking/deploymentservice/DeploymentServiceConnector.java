@@ -7,7 +7,6 @@ import it.polimi.tracechecking.common.model.ComputeNode;
 import it.polimi.tracechecking.common.model.DIA;
 import it.polimi.tracechecking.common.model.DIAElement;
 import it.polimi.tracechecking.common.model.StorageSystem;
-import it.polimi.tracechecking.driver.VmsCluster;
 
 public class DeploymentServiceConnector {
     
