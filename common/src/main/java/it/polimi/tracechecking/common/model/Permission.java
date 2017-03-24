@@ -6,6 +6,18 @@ public class Permission extends DIAElement  {
     
     private String mtlProperty;
     
+    private String protectedElement;
+    
+    private String userCluster;
+    
+    private String protectionLevel;
+    
+    private ActionType actionType;
+    
+    private Date validityStartTime;
+    
+    private Date validityEndTime;
+
     public String getMtlProperty() {
         return mtlProperty;
     }
@@ -21,13 +33,7 @@ public class Permission extends DIAElement  {
     public void setUserCluster(String userCluster) {
         this.userCluster = userCluster;
     }
-
-    private String protectedElement;
-    
-    private String userCluster;
-    
-    private String protectionLevel;
-    
+  
     public String getProtectionLevel() {
         return protectionLevel;
     }
@@ -36,8 +42,6 @@ public class Permission extends DIAElement  {
         this.protectionLevel = protectionLevel;
     }
 
-    private ActionType actionType;
-    
     public String getProtectedElement() {
         return protectedElement;
     }
@@ -69,9 +73,5 @@ public class Permission extends DIAElement  {
     public void setValidityEndTime(Date validityEndTime) {
         this.validityEndTime = validityEndTime;
     }
-
-    private Date validityStartTime;
     
-    private Date validityEndTime;
-
 }
