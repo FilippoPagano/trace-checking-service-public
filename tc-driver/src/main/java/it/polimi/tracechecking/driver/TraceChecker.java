@@ -22,9 +22,9 @@ public class TraceChecker {
 
 	public void checkTrace(String pathToEventsFile, String pathToFormulaeFile, String pathToOutputFile) {
 		try {
-			final String javaHome = "/opt/java/jdk1.7.0_75";
-			final String sparkHome = "/home/filippo/Scrivania/spark-1.4.1-bin-hadoop2.6";
-			final String appResource = "/home/filippo/Scrivania/b/MTLMapReduce/scripts/MTL.jar";
+			final String javaHome = Config.getProperty(Config.JAVA_HOME);
+			final String sparkHome = Config.getProperty(Config.SPARK_HOME);
+			final String appResource = Config.getProperty(Config.PATH_TO_APP); //i'd rather put it in resources idk
 			final String mainClass = "it.polimi.krstic.MTLMapReduce.SparkHistoryCheck";
 			//
 			// parameters passed to the SparkFriendRecommendation
@@ -45,7 +45,7 @@ public class TraceChecker {
 			SparkLauncher spark = new SparkLauncher().setVerbose(true).setSparkHome(sparkHome)
 					.setAppResource(appResource) // "/my/app.jar"
 					.setMainClass(mainClass) // "my.spark.app.Main"
-					.setMaster("spark://filippo-Lenovo-G505s:7077").setConf(SparkLauncher.DRIVER_MEMORY, "1g")
+					.setMaster(Config.getProperty(Config.SPARK_HOST)).setConf(SparkLauncher.DRIVER_MEMORY, "1g")
 					.setConf(SparkLauncher.EXECUTOR_CORES, "1").setConf(SparkLauncher.EXECUTOR_MEMORY, "1g")
 					.addAppArgs(appArgs);
 			//
