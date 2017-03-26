@@ -3,7 +3,7 @@ package it.polimi.tracechecking.common.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.polimi.tracecheking.common.exception.DIAElementNotFoundException;
+import it.polimi.tracechecking.common.exception.DIAElementNotFoundException;
 
 public class DIA {
 

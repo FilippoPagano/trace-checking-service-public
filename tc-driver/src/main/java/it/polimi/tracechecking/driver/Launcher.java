@@ -12,7 +12,7 @@ import it.polimi.tracechecking.common.model.DIAElement;
 import it.polimi.tracechecking.common.model.StorageSystem;
 import it.polimi.tracechecking.common.model.StorageSystemType;
 import it.polimi.tracechecking.deploymentservice.DeploymentServiceConnector;
-import it.polimi.tracecheking.common.exception.DIAElementNotFoundException;
+import it.polimi.tracechecking.common.exception.DIAElementNotFoundException;
 
 public class Launcher {
 
