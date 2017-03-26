@@ -9,6 +9,10 @@ public class Config {
     
     public static final String INTERVAL_BETWEEN_TC_RUN = "interval_between_tc_run";
     public static final String PATH_TO_MODEL = "path_to_model";
+    public static final String JAVA_HOME = "java_home";
+    public static final String SPARK_HOME = "spark_home";
+    public static final String PATH_TO_APP = "path_to_app";
+    public static final String SPARK_HOST = "spark_host";
     
     private static Properties prop = new Properties();
     private static Boolean isLoaded = false;
@@ -44,3 +48,4 @@ public class Config {
             throw new RuntimeException("Trying to get the property '" + propertyName + "' but properties have not been loaded.");
     }
 }
+
