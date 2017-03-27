@@ -12,6 +12,7 @@ elements:
   - !computeNode 
     id: myStormCluster
     targetTech: STORM
+    pathToTrace: /user/traces/trace1
     managed: FALSE
   - !dataset
     id: myDataset
@@ -35,6 +36,7 @@ elements:
   - !permission
     id: myStormClusterCanAccessMyDataset
     userCluster: myStormCluster
+    asociatedMtlFormula: ibjfkn
     protectedElement: Id
     protectionLevel: attribute
     validityStartTime: 2001-09-09T01:46:40Z
