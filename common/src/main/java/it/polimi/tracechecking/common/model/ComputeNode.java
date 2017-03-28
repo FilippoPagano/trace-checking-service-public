@@ -13,6 +13,16 @@ public class ComputeNode extends DIAElement {
     private List<String> outputDatasets;
     
     private List<String> outputStorages;
+
+    public String getPathToTrace() {
+        return pathToTrace;
+    }
+
+    public void setPathToTrace(String pathToTrace) {
+        this.pathToTrace = pathToTrace;
+    }
+
+    private String pathToTrace;
     
     public ComputeTechType getTargetTech() {
         return targetTech;

@@ -18,6 +18,16 @@ public class Permission extends DIAElement  {
     
     private Date validityEndTime;
 
+    public String getAsociatedMtlFormula() {
+        return asociatedMtlFormula;
+    }
+
+    public void setAsociatedMtlFormula(String asociatedMtlFormula) {
+        this.asociatedMtlFormula = asociatedMtlFormula;
+    }
+
+    private String asociatedMtlFormula;
+
     public String getMtlProperty() {
         return mtlProperty;
     }

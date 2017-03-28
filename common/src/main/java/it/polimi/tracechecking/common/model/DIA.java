@@ -176,6 +176,18 @@ public class DIA {
 
         return toReturn;
     }
+    public List<ComputeNode> getComputeNodesWithPermission() throws DIAElementNotFoundException {
+
+        List<ComputeNode> toReturn = new ArrayList<ComputeNode>();
+
+        for (Permission p : this.getPermissions()) {
+            if (this.getDiaElement(p.getUserCluster()) instanceof ComputeNode) {
+                toReturn.add(
+                        this.getComputeNode(p.getUserCluster()));
+            }         }
+
+        return toReturn;
+    }
 
     public DIAElement getDiaElement(String elementId) throws DIAElementNotFoundException {
         for (DIAElement e : this.elements) {

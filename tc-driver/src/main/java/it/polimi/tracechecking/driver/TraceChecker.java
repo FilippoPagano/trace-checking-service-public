@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import it.polimi.tracechecking.common.ModelLoader;
+import it.polimi.tracechecking.common.model.DIA;
 import org.apache.spark.launcher.SparkLauncher;
 import it.polimi.tracechecking.common.model.Permission;
 import it.polimi.tracechecking.driver.InputStreamReaderRunnable;
@@ -69,16 +71,22 @@ public class TraceChecker {
             e.printStackTrace();
         }
     }
+/*
+    public static void main(String args[]) {
 
-   /* public static void main(String args[]) {
         try {
             Config.loadConfig("//home/filippo/IdeaProjects/trace-checking-service/conf/config.properties");
+            Config.getProperty("path_to_model");
+            DIA dia = ModelLoader.loadInputModelFromFile(Config.getProperty("path_to_model"));
+            System.out.println( dia.getPermissions().get(0).getAsociatedMtlFormula());
+
             //	connect("",0);
-            checkTrace("hdfs://localhost:9000/user/fil/trace1", "/home/filippo/Scrivania/formula1", "/home/filippo/Scrivania/output");
+       //     checkTrace(dia.getComputeNodes().get(0).getPathToTrace(), dia.getPermissions().get(0).getAsociatedMtlFormula(), "/home/filippo/Scrivania/output");
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
-    }*/
+    }
+    */
 }

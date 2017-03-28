@@ -12,7 +12,7 @@ elements:
   - !computeNode 
     id: myStormCluster
     targetTech: STORM
-    pathToTrace: /user/traces/trace1
+    pathToTrace: /user/fil/trace1
     managed: FALSE
   - !dataset
     id: myDataset
@@ -25,18 +25,18 @@ elements:
       - id: Zip
         isQuasiIdentifier: true
         type: text
-      - id: Age 
+      - id: Age
         isQuasiIdentifier: true
         type: int
       - id: Nationality
         type: text
-      - id: Problem 
+      - id: Problem
         isSensitive: true
         type: text
   - !permission
     id: myStormClusterCanAccessMyDataset
     userCluster: myStormCluster
-    asociatedMtlFormula: ibjfkn
+    asociatedMtlFormula: a-U-(c|b)
     protectedElement: Id
     protectionLevel: attribute
     validityStartTime: 2001-09-09T01:46:40Z
