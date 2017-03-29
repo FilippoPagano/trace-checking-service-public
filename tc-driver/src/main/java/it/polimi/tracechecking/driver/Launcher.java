@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import it.polimi.tracechecking.common.model.*;
+import org.apache.log4j.BasicConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,7 +21,9 @@ public class Launcher {
 
     public static void main(String args[]) {
         Config.loadConfig("/home/filippo/IdeaProjects/trace-checking-service/conf/config.properties");
-
+        BasicConfigurator.configure();
+        //TODO: read http://stackoverflow.com/questions/12532339/no-appenders-could-be-found-for-loggerlog4j
+        //for better configuration :)
         try {
 
             DIA dia = ModelLoader.loadInputModelFromFile(Config.getProperty(Config.PATH_TO_MODEL));
@@ -49,7 +52,7 @@ public class Launcher {
                 String formula = p.getAsociatedMtlFormula();
                 if (!formula.isEmpty()){
                     ComputeNode c = dia.getComputeNode(p.getUserCluster());
-                    new CheckingClock(t,c.getPathToTrace(),formula);
+                    new CheckingClock(t,c.getPathToTrace(),formula,Config.getProperty(Config.PATH_TO_OUTPUT));
                 }
             }
 /*

@@ -22,10 +22,11 @@ public class TraceChecker {
         return result;
     }
 
-    public void checkTrace(String pathToEventsFile, String pathToFormulaeFile, String pathToOutputFile) {
+    public static void checkTrace(String pathToEventsFile, String pathToFormulaeFile, String pathToOutputFile) {
         try {
-            final String javaHome = Config.getProperty(Config.JAVA_HOME);
+
             final String sparkHome = Config.getProperty(Config.SPARK_HOME);
+            final String javaHome = Config.getProperty(Config.JAVA_HOME);
             final String appResource = Config.getProperty(Config.PATH_TO_APP); //i'd rather put it in resources idk
             final String mainClass = "it.polimi.krstic.MTLMapReduce.SparkHistoryCheck";
             //
@@ -71,22 +72,26 @@ public class TraceChecker {
             e.printStackTrace();
         }
     }
-/*
+//*
     public static void main(String args[]) {
 
         try {
-            Config.loadConfig("//home/filippo/IdeaProjects/trace-checking-service/conf/config.properties");
-            Config.getProperty("path_to_model");
-            DIA dia = ModelLoader.loadInputModelFromFile(Config.getProperty("path_to_model"));
-            System.out.println( dia.getPermissions().get(0).getAsociatedMtlFormula());
+            //     Config.loadConfig("//home/filippo/IdeaProjects/trace-checking-service/conf/config.properties");
+            //      Config.getProperty("path_to_model");
+            //      DIA dia = ModelLoader.loadInputModelFromFile(Config.getProperty("path_to_model"));
+            //     System.out.println( dia.getPermissions().get(0).getAsociatedMtlFormula());
 
             //	connect("",0);
-       //     checkTrace(dia.getComputeNodes().get(0).getPathToTrace(), dia.getPermissions().get(0).getAsociatedMtlFormula(), "/home/filippo/Scrivania/output");
+            Config.loadConfig("/home/filippo/IdeaProjects/trace-checking-service/conf/config.properties");
+            System.out.println(Config.getProperty(Config.PATH_TO_OUTPUT));
+            checkTrace("hdfs://localhost:9000/user/fil/trace1", "/home/filippo/Scrivania/formula1", Config.getProperty(Config.PATH_TO_OUTPUT));
+           // checkTrace("hdfs://localhost:9000/user/fil/trace1", "/home/filippo/Scrivania/formula1", "/home/filippo/Scrivania/output");
+
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
     }
-    */
+//*/
 }

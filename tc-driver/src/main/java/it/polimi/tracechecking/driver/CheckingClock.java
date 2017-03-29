@@ -18,66 +18,28 @@ public class CheckingClock {
     private Timer timer;
     private static final Logger journal = LoggerFactory
             .getLogger(CheckingClock.class);
-    
-    public CheckingClock(int timeStepDurationInMinutes, StorageSystem storage, List<Permission> permissions) {
-        timer = new Timer();
-        journal.info("Here is the adaptation clock!");
-        
 
-        timer.scheduleAtFixedRate(new ControllerLauncher(storage, permissions), 1000, timeStepDurationInMinutes*60*1000);
-
-    }
-    public CheckingClock(int timeStepDurationInMinutes, String pathToTraces, String formula){
+    public CheckingClock(int timeStepDurationInMinutes, String pathToTraces, String formula, String pathToOutput){
         timer = new Timer();
         journal.info("Here is the adaptation clock!");
 
-        timer.scheduleAtFixedRate(new MTLLauncher(pathToTraces, formula), 1000, timeStepDurationInMinutes*60*1000);
+        timer.scheduleAtFixedRate(new MTLLauncher(pathToTraces, formula, pathToOutput), 1000, timeStepDurationInMinutes*60*1000);
     };
     class MTLLauncher extends TimerTask{
         private String toControl;
         private String formula;
-       public MTLLauncher(String pathToTraces, String formula){
+        private String pathToOutput;
+       public MTLLauncher(String pathToTraces, String formula, String pathToOutput){
            this.toControl = pathToTraces;
            this.formula = formula;
+           this.pathToOutput = pathToOutput;
        }
        public void run(){
            System.out.println("Started 1");
            TraceChecker tc = new TraceChecker();
-           tc.checkTrace("hdfs://localhost:9000" + toControl, formula, "/home/filippo/Scrivania/output");
+           tc.checkTrace(toControl, formula, pathToOutput);
 
        }
     };
-    class ControllerLauncher extends TimerTask {
-        
-        private StorageSystem toControl;
-        private List<Permission> permissions;
-        
-        public ControllerLauncher(StorageSystem storage, List<Permission> permissions){
-            this.toControl = storage;
-            this.permissions = permissions;
-        }
-       
-        public void run() {
-                        
-            TraceBuilder lc = new TraceBuilder();
-            
-            String pathToTrace = lc.createTraceCheckingLogFromCassandraTracing(
-                    toControl.getClusterContactPoint(),
-                    toControl.getClusterContactPort(),
-                    toControl.getUserId(),
-                    toControl.getPassword());
-            
-            TraceChecker tc = new TraceChecker();
-            
-            Map<String, Boolean> checkingResult = tc.checkTrace(pathToTrace, permissions);
-    
-            for(String permission: checkingResult.keySet())
-            {
-                if(!checkingResult.get(permission)){
-                    System.out.println("Permission " + permission + " violated.");
-                }
-            }
-        }
-    }
 
 }
