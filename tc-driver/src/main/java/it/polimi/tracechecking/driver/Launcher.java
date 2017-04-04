@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -33,14 +32,17 @@ public class Launcher {
             ComputeNodePermissionMap = dia.getComputeNodesWithPermission();
             for (ComputeNode c : ComputeNodePermissionMap.keySet()) {
                 String pathToFormoulae = outputDir + File.separator + c.getId() + File.separator + "formulae";
+                String computeNodeDir = outputDir + File.separator + c.getId();
                 File theDir = new File(pathToFormoulae);
+                theDir.mkdirs();
+
                 for (Permission p : ComputeNodePermissionMap.get(c)
                         ) {
-                    PrintWriter writer = new PrintWriter("formula" + ComputeNodePermissionMap.get(c).indexOf(p), "UTF-8");
-                    writer.println(p.getAsociatedMtlFormula());
-                    writer.close();
+                    List<String> lines = Arrays.asList(p.getAsociatedMtlFormula());
+                    Files.write(Paths.get(pathToFormoulae + File.separator + "formula" + (ComputeNodePermissionMap.get(c).indexOf(p) + 1)), lines, Charset.forName("UTF-8"));
+
                 }
-                CheckingClock cc = new CheckingClock(t, c.getPathToTrace(), pathToFormoulae, outputDir);
+                CheckingClock cc = new CheckingClock(t, c.getPathToTrace(), pathToFormoulae, computeNodeDir + File.separator + "output");
                 map.put(c, cc);
             }
 
