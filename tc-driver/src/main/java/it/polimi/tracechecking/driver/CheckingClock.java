@@ -33,8 +33,8 @@ public class CheckingClock {
         return TraceChecker.getViolations();
     }
 
-    public Integer getViolations(ComputeNode c) {
-        return tc.getViolations(c);
+    public Integer getViolations(ComputeNode c, Integer formulaIndex) {
+        return tc.getViolations(c, formulaIndex);
     }
     /*public Integer getViolations(String formula){
         return tc.getViolations(formula);

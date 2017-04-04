@@ -6,6 +6,8 @@ import org.apache.spark.launcher.SparkLauncher;
 
 import java.io.*;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TraceChecker {
 
@@ -153,22 +155,26 @@ public class TraceChecker {
         }
         return i;
     }*/
-    public Integer getViolations(ComputeNode c) {
+    public Integer getViolations(ComputeNode c, Integer formulaIndex) {
         List<String> resultsContainer = new ArrayList<String>();
         Integer i = 0;
         try {
-            File pathToFormulae = new File(Config.getProperty(Config.PATH_TO_OUTPUT) + File.separator + c.getId() + File.separator + "formulae");
             File pathToOutput = new File(Config.getProperty(Config.PATH_TO_OUTPUT) + File.separator + c.getId());
             searchFiles(pathToOutput, "false", resultsContainer);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         for (String path : resultsContainer) {
-            // if (path.contains(pathsToFormula.get(0)))
-            //
-            i++; //TODO not correct, returns empty set
-            // I want to increment for every result of the specified formula
+            String result = "0";
+            Pattern p = Pattern.compile("[0-9]+$");
+            Matcher m = p.matcher(path);
+            if (m.find()) {
+                result = m.group();
+            }
+
+            if (Integer.parseInt(result) == formulaIndex) i++;
         }
+
         return i;
     }
 

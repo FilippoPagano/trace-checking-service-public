@@ -92,7 +92,7 @@ public class Launcher {
         try {
             if (dia == null) dia = ModelLoader.loadInputModelFromFile(Config.getProperty(Config.PATH_TO_MODEL));
             System.out.println(l.getResults(dia.getComputeNodes().get(0)));
-            // l.cancel();
+            l.cancel();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -163,9 +163,11 @@ public class Launcher {
 
     public Map<String, Integer> getResults(ComputeNode c) {
         Map<String, Integer> results = new HashMap<String, Integer>();
+        Integer i = 1;
         for (Permission p : ComputeNodePermissionMap.get(c)) {
             String formula = p.getAsociatedMtlFormula();
-            results.put(formula, map.get(c).getViolations(c));
+            results.put(formula, map.get(c).getViolations(c, i));
+            i++;
         }
         return results;
     }
