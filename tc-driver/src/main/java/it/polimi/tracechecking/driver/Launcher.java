@@ -1,10 +1,12 @@
 package it.polimi.tracechecking.driver;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import it.polimi.tracechecking.common.model.*;
 import org.apache.log4j.BasicConfigurator;
+import org.htrace.Trace;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +18,7 @@ import org.tukaani.xz.check.Check;
 public class Launcher {
 
     private static final Logger logger = LoggerFactory.getLogger(Launcher.class);
-
+    private static List<CheckingClock> cks = new ArrayList<CheckingClock>();;
 
 
     public static void main(String args[]) {
@@ -52,9 +54,22 @@ public class Launcher {
                 String formula = p.getAsociatedMtlFormula();
                 if (!formula.isEmpty()){
                     ComputeNode c = dia.getComputeNode(p.getUserCluster());
-                    new CheckingClock(t,c.getPathToTrace(),formula,Config.getProperty(Config.PATH_TO_OUTPUT));
+                    CheckingClock cc = new CheckingClock(t,c.getPathToTrace(),formula,Config.getProperty(Config.PATH_TO_OUTPUT));
+                   cks.add(cc);
                 }
             }
+            System.out.println(TraceChecker.getViolations());
+            try {
+                Thread.sleep(4000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            for (CheckingClock cc : cks) {
+                cc.cancel();
+
+            }
+
+
 /*
             try {
                 for (StorageSystem s : dia.getStorageSystemWithPermission()) {

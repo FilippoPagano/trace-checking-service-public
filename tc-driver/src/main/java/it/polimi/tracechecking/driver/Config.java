@@ -14,7 +14,8 @@ public class Config {
     public static final String SPARK_HOME = "spark_home";
     public static final String PATH_TO_APP = "path_to_app";
     public static final String SPARK_HOST = "spark_host";
-    
+    public static final String HDFS_HOST = "hdfs_host";
+    public static final String HDFS_PORT = "hdfs_port";
     private static Properties prop = new Properties();
     private static Boolean isLoaded = false;
 
