@@ -1,9 +1,8 @@
 package it.polimi.tracechecking.common.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import it.polimi.tracechecking.common.exception.DIAElementNotFoundException;
+
+import java.util.*;
 
 public class DIA {
 
@@ -176,7 +175,8 @@ public class DIA {
 
         return toReturn;
     }
-    public List<ComputeNode> getComputeNodesWithPermission() throws DIAElementNotFoundException {
+
+    /*public List<ComputeNode> getComputeNodesWithPermission() throws DIAElementNotFoundException {
 
         List<ComputeNode> toReturn = new ArrayList<ComputeNode>();
 
@@ -186,6 +186,19 @@ public class DIA {
                         this.getComputeNode(p.getUserCluster()));
             }         }
 
+        return toReturn;
+    }*/
+    public Map<ComputeNode, List<Permission>> getComputeNodesWithPermission() throws DIAElementNotFoundException {
+        Map<ComputeNode, List<Permission>> toReturn = new HashMap<ComputeNode, List<Permission>>();
+        for (Permission p : this.getPermissions()) {
+            if (this.getDiaElement(p.getUserCluster()) instanceof ComputeNode) {
+                if (toReturn.containsKey(this.getComputeNode(p.getUserCluster())))
+                    toReturn.get(this.getComputeNode(p.getUserCluster())).add(p);
+                else
+                    toReturn.put(this.getComputeNode(p.getUserCluster()), new ArrayList<Permission>(Arrays.asList(p)));
+            }
+
+        }
         return toReturn;
     }
 

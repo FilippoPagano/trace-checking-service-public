@@ -1,22 +1,14 @@
 package it.polimi.tracechecking.common;
 
-import java.io.File;
-import java.io.IOException;
-
+import it.polimi.tracechecking.common.model.*;
 import org.apache.commons.io.FileUtils;
 import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 import org.yaml.snakeyaml.nodes.Tag;
 
-import it.polimi.tracechecking.common.model.Attribute;
-import it.polimi.tracechecking.common.model.ComputeNode;
-import it.polimi.tracechecking.common.model.DIA;
-import it.polimi.tracechecking.common.model.DIAElement;
-import it.polimi.tracechecking.common.model.Dataset;
-import it.polimi.tracechecking.common.model.Permission;
-import it.polimi.tracechecking.common.model.StorageSystem;
-import it.polimi.tracechecking.common.model.User;
+import java.io.File;
+import java.io.IOException;
 
 public class ModelLoader {
     
@@ -56,6 +48,13 @@ public class ModelLoader {
         String content = FileUtils.readFileToString(new File(pathToInputModel), "UTF-8");
         
         return yaml.loadAs(content, DIA.class);
+    }
+
+    public static DIA loadInputModel(String model) throws IOException {
+
+        Yaml yaml = new Yaml(modelConstructor);
+
+        return yaml.loadAs(model, DIA.class);
     }
     
     private static Constructor buildModelConstructor(){

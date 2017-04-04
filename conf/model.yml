@@ -12,7 +12,7 @@ elements:
   - !computeNode 
     id: myStormCluster
     targetTech: STORM
-    pathToTrace: hdfs://localhost:9000/user/fil/trace1
+    pathToTrace: /user/filippo/traces
     managed: FALSE
   - !dataset
     id: myDataset
@@ -36,7 +36,16 @@ elements:
   - !permission
     id: myStormClusterCanAccessMyDataset
     userCluster: myStormCluster
-    asociatedMtlFormula: /home/filippo/Scrivania/formula1
+    asociatedMtlFormula: a-U-(c|b)
+    protectedElement: Id
+    protectionLevel: attribute
+    validityStartTime: 2001-09-09T01:46:40Z
+    validityEndTime: 2001-09-10T01:46:40Z
+    actionType: READ
+  - !permission
+    id: myStormClusterCanAccessMyDataset
+    userCluster: myStormCluster
+    asociatedMtlFormula: -F-[0,1000000]p
     protectedElement: Id
     protectionLevel: attribute
     validityStartTime: 2001-09-09T01:46:40Z
