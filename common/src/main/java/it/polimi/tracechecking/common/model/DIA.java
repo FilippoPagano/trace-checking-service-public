@@ -176,18 +176,6 @@ public class DIA {
         return toReturn;
     }
 
-    /*public List<ComputeNode> getComputeNodesWithPermission() throws DIAElementNotFoundException {
-
-        List<ComputeNode> toReturn = new ArrayList<ComputeNode>();
-
-        for (Permission p : this.getPermissions()) {
-            if (this.getDiaElement(p.getUserCluster()) instanceof ComputeNode) {
-                toReturn.add(
-                        this.getComputeNode(p.getUserCluster()));
-            }         }
-
-        return toReturn;
-    }*/
     public Map<ComputeNode, List<Permission>> getComputeNodesWithPermission() throws DIAElementNotFoundException {
         Map<ComputeNode, List<Permission>> toReturn = new HashMap<ComputeNode, List<Permission>>();
         for (Permission p : this.getPermissions()) {

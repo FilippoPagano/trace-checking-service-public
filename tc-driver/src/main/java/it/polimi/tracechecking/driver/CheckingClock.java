@@ -29,16 +29,10 @@ public class CheckingClock {
 
     }
 
-    public String getViolations() {
-        return TraceChecker.getViolations();
-    }
 
     public Integer getViolations(ComputeNode c, Integer formulaIndex) {
-        return tc.getViolations(c, formulaIndex);
+        return TraceChecker.getViolations(c, formulaIndex);
     }
-    /*public Integer getViolations(String formula){
-        return tc.getViolations(formula);
-    }*/
 
     class MTLLauncher extends TimerTask{
         private String toControl;

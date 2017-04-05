@@ -1,7 +1,6 @@
 package it.polimi.tracechecking.driver;
 
 import it.polimi.tracechecking.common.ModelLoader;
-import it.polimi.tracechecking.common.exception.DIAElementNotFoundException;
 import it.polimi.tracechecking.common.model.ComputeNode;
 import it.polimi.tracechecking.common.model.DIA;
 import it.polimi.tracechecking.common.model.Permission;
@@ -19,67 +18,56 @@ import java.util.*;
 public class Launcher {
 
     private static final Logger logger = LoggerFactory.getLogger(Launcher.class);
-    private static List<CheckingClock> cks = new ArrayList<CheckingClock>();
-    private static DIA dia;
+    private List<CheckingClock> cks = new ArrayList<CheckingClock>();
+    private DIA dia;
     private Map<ComputeNode, CheckingClock> map = new HashMap<ComputeNode, CheckingClock>();
     private Map<ComputeNode, List<Permission>> ComputeNodePermissionMap = new HashMap<ComputeNode, List<Permission>>();
 
-    public Launcher(String App) {
+    private Launcher(DIA dia) {
+
         try {
-            if (dia == null) dia = ModelLoader.loadInputModel(App);
-            Integer t = Integer.parseInt(Config.getProperty(Config.INTERVAL_BETWEEN_TC_RUN));
+            if (this.dia == null) this.dia = dia;
+            Integer periodInMinutes = Integer.parseInt(Config.getProperty(Config.INTERVAL_BETWEEN_TC_RUN));
             String outputDir = Config.getProperty(Config.PATH_TO_OUTPUT);
             ComputeNodePermissionMap = dia.getComputeNodesWithPermission();
             for (ComputeNode c : ComputeNodePermissionMap.keySet()) {
+                //Prepare dirs for each ComputeNode
                 String pathToFormoulae = outputDir + File.separator + c.getId() + File.separator + "formulae";
                 String computeNodeDir = outputDir + File.separator + c.getId();
-                File theDir = new File(pathToFormoulae);
-                theDir.mkdirs();
+                File formulaeFile = new File(pathToFormoulae);
+                formulaeFile.mkdirs();
 
-                for (Permission p : ComputeNodePermissionMap.get(c)
-                        ) {
+                for (Permission p : ComputeNodePermissionMap.get(c)) {
+                    //Put each formula in a file
                     List<String> lines = Arrays.asList(p.getAsociatedMtlFormula());
                     Files.write(Paths.get(pathToFormoulae + File.separator + "formula" + (ComputeNodePermissionMap.get(c).indexOf(p) + 1)), lines, Charset.forName("UTF-8"));
 
                 }
-                CheckingClock cc = new CheckingClock(t, c.getPathToTrace(), pathToFormoulae, computeNodeDir + File.separator + "output");
+                CheckingClock cc = new CheckingClock(periodInMinutes, c.getPathToTrace(), pathToFormoulae, computeNodeDir + File.separator + "output");
                 map.put(c, cc);
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (DIAElementNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public Launcher() {
+    public static Launcher CreateLauncher() {
         try {
-            if (dia == null) dia = ModelLoader.loadInputModelFromFile(Config.getProperty(Config.PATH_TO_MODEL));
-            Integer t = Integer.parseInt(Config.getProperty(Config.INTERVAL_BETWEEN_TC_RUN));
-            String outputDir = Config.getProperty(Config.PATH_TO_OUTPUT);
-            ComputeNodePermissionMap = dia.getComputeNodesWithPermission();
-            for (ComputeNode c : ComputeNodePermissionMap.keySet()) {
-                String pathToFormoulae = outputDir + File.separator + c.getId() + File.separator + "formulae";
-                String computeNodeDir = outputDir + File.separator + c.getId();
-                File theDir = new File(pathToFormoulae);
-                theDir.mkdirs();
-
-                for (Permission p : ComputeNodePermissionMap.get(c)
-                        ) {
-                    List<String> lines = Arrays.asList(p.getAsociatedMtlFormula());
-                    Files.write(Paths.get(pathToFormoulae + File.separator + "formula" + (ComputeNodePermissionMap.get(c).indexOf(p) + 1)), lines, Charset.forName("UTF-8"));
-
-                }
-                CheckingClock cc = new CheckingClock(t, c.getPathToTrace(), pathToFormoulae, computeNodeDir + File.separator + "output");
-                map.put(c, cc);
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (DIAElementNotFoundException e) {
+            return new Launcher(ModelLoader.loadInputModelFromFile(Config.getProperty(Config.PATH_TO_MODEL)));
+        } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
+    }
+
+    public static Launcher CreateLauncher(String dia) {
+        try {
+            return new Launcher(ModelLoader.loadInputModel(dia));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static void main(String args[]) {
@@ -88,80 +76,21 @@ public class Launcher {
         //TODO: read http://stackoverflow.com/questions/12532339/no-appenders-could-be-found-for-loggerlog4j
         //for better configuration :)
 
-        Launcher l = new Launcher();
+        Launcher l = CreateLauncher();
         try {
-            if (dia == null) dia = ModelLoader.loadInputModelFromFile(Config.getProperty(Config.PATH_TO_MODEL));
-            System.out.println(l.getResults(dia.getComputeNodes().get(0)));
+            if (l.dia == null) l.dia = ModelLoader.loadInputModelFromFile(Config.getProperty(Config.PATH_TO_MODEL));
+            System.out.println(l.getResults(l.dia.getComputeNodes().get(0)));
+            Thread.sleep(4000);
             l.cancel();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-
-/*
-            DIA dia = ModelLoader.loadInputModelFromFile(Config.getProperty(Config.PATH_TO_MODEL));
-            Integer t = Integer.parseInt(Config.getProperty(Config.INTERVAL_BETWEEN_TC_RUN));
-            String outputDir = Config.getProperty(Config.PATH_TO_OUTPUT);
-            for (Permission p : dia.getPermissions()){
-                String formula = p.getAsociatedMtlFormula();
-                if (!formula.isEmpty()){
-                    ComputeNode c = dia.getComputeNode(p.getUserCluster());
-                    CheckingClock cc = new CheckingClock(t,c.getPathToTrace(),formula,outputDir);
-                   cks.add(cc);
-                }
-            }
-            try {
-                Thread.sleep(4000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            for (CheckingClock cc : cks) {
-                System.out.println(cc.getViolations());
-                cc.cancel();
-
-            }
-
- /*
-            dia.getComputeNodes().get(0).getPathToTrace();
-            dia.getPermissions().get(0);
-            StorageSystem storage = new StorageSystem();
-            dia.getStorageSystem("");
-            new CheckingClock(Integer.parseInt(Config.getProperty(Config.INTERVAL_BETWEEN_TC_RUN)),
-                    storage,
-                    dia.getPermissions());
-           /* for  (ComputeNode c : dia.getComputeNodes()){
-
-            }*/
-
-            // TO-DO: add initialization and launching of
-            // DeploymentServiceConnector
-
-            /*
-             * DeploymentServiceConnector ds = new DeploymentServiceConnector();
-             * ds.connect("127.0.0.1", 8081); List<VmsCluster> clusters =
-             * ds.getClusters(dia); ds.close();
-             */
-/*
-            try {
-                for (StorageSystem s : dia.getStorageSystemWithPermission()) {
-                    if(s.getManaged()){
-                        if(s.getTargetTech().equals(StorageSystemType.CASSANDRA)) {
-                            new CheckingClock(Integer.parseInt(Config.getProperty(Config.INTERVAL_BETWEEN_TC_RUN)), s,
-                                    dia.getStorageSystemPermissions(s));
-                        }
-                        else if(!s.getTargetTech().equals(StorageSystemType.CASSANDRA)){
-                            logger.info("Storage platform " + s.getTargetTech() + "is currently not supported");
-                        }
-                    }
-                }
-            } catch (NumberFormatException | DIAElementNotFoundException e) {
-                logger.error(e.getMessage());
-                throw new IllegalStateException(e.getMessage(), e.getCause());
-            }
-            */
 
     }
 
-    public Map<String, Integer> getResults(ComputeNode c) {
+    public Map<String, Integer> getResults(ComputeNode c) { //GET # violations for every formula
         Map<String, Integer> results = new HashMap<String, Integer>();
         Integer i = 1;
         for (Permission p : ComputeNodePermissionMap.get(c)) {
@@ -172,10 +101,9 @@ public class Launcher {
         return results;
     }
 
-    public void cancel() {
+    public void cancel() { //STOP spark job
         for (CheckingClock ck : map.values()) {
             ck.cancel();
         }
     }
-
 }
