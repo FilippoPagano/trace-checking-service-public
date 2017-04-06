@@ -8,8 +8,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class TraceChecker {
 
@@ -75,14 +73,9 @@ public class TraceChecker {
             e.printStackTrace();
         }
         for (String path : resultsContainer) {
-            String result = "0";
-            Pattern p = Pattern.compile("[0-9]+$");
-            Matcher m = p.matcher(path);
-            if (m.find()) {
-                result = m.group();
-            }
+            Integer thisFormula = Utils.getEndingNumber(path);
 
-            if (Integer.parseInt(result) == formulaIndex) i++;
+            if (thisFormula == formulaIndex) i++;
         }
 
         return i;

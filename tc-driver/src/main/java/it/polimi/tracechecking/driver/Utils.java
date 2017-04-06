@@ -2,9 +2,15 @@ package it.polimi.tracechecking.driver;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by filippo on 05/04/17.
@@ -36,5 +42,21 @@ public class Utils {
             }
         }
         return result;
+    }
+
+    static String readFile(String path, Charset encoding)
+            throws IOException {
+        byte[] encoded = Files.readAllBytes(Paths.get(path));
+        return new String(encoded, encoding);
+    }
+
+    static Integer getEndingNumber(String string) {
+        String result = "0";
+        Pattern p = Pattern.compile("[0-9]+$");
+        Matcher m = p.matcher(string);
+        if (m.find()) {
+            result = m.group();
+        }
+        return Integer.parseInt(result);
     }
 }

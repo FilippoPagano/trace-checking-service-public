@@ -1,6 +1,7 @@
 package it.polimi.tracechecking.driver;
 
 import it.polimi.tracechecking.common.ModelLoader;
+import it.polimi.tracechecking.common.exception.DIAElementNotFoundException;
 import it.polimi.tracechecking.common.model.ComputeNode;
 import it.polimi.tracechecking.common.model.DIA;
 import it.polimi.tracechecking.common.model.Permission;
@@ -11,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -18,18 +20,18 @@ import java.util.*;
 public class Launcher {
 
     private static final Logger logger = LoggerFactory.getLogger(Launcher.class);
+    private final DIA dia;
     private List<CheckingClock> cks = new ArrayList<CheckingClock>();
-    private DIA dia;
     private Map<ComputeNode, CheckingClock> map = new HashMap<ComputeNode, CheckingClock>();
     private Map<ComputeNode, List<Permission>> ComputeNodePermissionMap = new HashMap<ComputeNode, List<Permission>>();
 
-    private Launcher(DIA dia) {
-
+    public Launcher(String diaString) {
+        DIA dia1;
         try {
-            if (this.dia == null) this.dia = dia;
+            dia1 = ModelLoader.loadInputModel(diaString);
             Integer periodInMinutes = Integer.parseInt(Config.getProperty(Config.INTERVAL_BETWEEN_TC_RUN));
             String outputDir = Config.getProperty(Config.PATH_TO_OUTPUT);
-            ComputeNodePermissionMap = dia.getComputeNodesWithPermission();
+            ComputeNodePermissionMap = dia1.getComputeNodesWithPermission();
             for (ComputeNode c : ComputeNodePermissionMap.keySet()) {
                 //Prepare dirs for each ComputeNode
                 String pathToFormoulae = outputDir + File.separator + c.getId() + File.separator + "formulae";
@@ -46,28 +48,14 @@ public class Launcher {
                 CheckingClock cc = new CheckingClock(periodInMinutes, c.getPathToTrace(), pathToFormoulae, computeNodeDir + File.separator + "output");
                 map.put(c, cc);
             }
-
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    public static Launcher CreateLauncher() {
-        try {
-            return new Launcher(ModelLoader.loadInputModelFromFile(Config.getProperty(Config.PATH_TO_MODEL)));
-        } catch (Exception e) {
+            dia1 = null;
+        } catch (DIAElementNotFoundException e) {
             e.printStackTrace();
+            dia1 = null;
         }
-        return null;
-    }
-
-    public static Launcher CreateLauncher(String dia) {
-        try {
-            return new Launcher(ModelLoader.loadInputModel(dia));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        this.dia = dia1;
     }
 
     public static void main(String args[]) {
@@ -75,10 +63,9 @@ public class Launcher {
         BasicConfigurator.configure();
         //TODO: read http://stackoverflow.com/questions/12532339/no-appenders-could-be-found-for-loggerlog4j
         //for better configuration :)
-
-        Launcher l = CreateLauncher();
         try {
-            if (l.dia == null) l.dia = ModelLoader.loadInputModelFromFile(Config.getProperty(Config.PATH_TO_MODEL));
+
+            Launcher l = new Launcher(Utils.readFile(Config.getProperty(Config.PATH_TO_MODEL), StandardCharsets.UTF_8));
             System.out.println(l.getResults(l.dia.getComputeNodes().get(0)));
             Thread.sleep(4000);
             l.cancel();
@@ -105,5 +92,9 @@ public class Launcher {
         for (CheckingClock ck : map.values()) {
             ck.cancel();
         }
+    }
+
+    public DIA getDia() {
+        return dia;
     }
 }
