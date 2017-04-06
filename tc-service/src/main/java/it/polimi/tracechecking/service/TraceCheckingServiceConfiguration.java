@@ -8,7 +8,6 @@ import io.dropwizard.Configuration;
 
 public class TraceCheckingServiceConfiguration extends Configuration {
 
-
     @NotEmpty
     private String propertiesFilePath;
 
