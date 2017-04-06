@@ -1,5 +1,6 @@
 --- !!it.polimi.cassandra.utils.common.model.DIA
 diaName: myDia
+intervalBetweenChecks: 5
 elements:
   - !storageNode 
     id: myCassandraCluster

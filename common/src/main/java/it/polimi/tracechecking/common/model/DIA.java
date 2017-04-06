@@ -9,6 +9,16 @@ public class DIA {
     private String diaName;
 
     private List<DIAElement> elements;
+    
+    private Integer intervalBetweenChecks;
+
+    public Integer getIntervalBetweenChecks() {
+        return intervalBetweenChecks;
+    }
+
+    public void setIntervalBetweenChecks(Integer intervalBetweenChecks) {
+        this.intervalBetweenChecks = intervalBetweenChecks;
+    }
 
     public DIA() {
     }

@@ -29,7 +29,7 @@ public class Launcher {
         DIA dia1;
         try {
             dia1 = ModelLoader.loadInputModel(diaString);
-            Integer periodInMinutes = Integer.parseInt(Config.getProperty(Config.INTERVAL_BETWEEN_TC_RUN));
+            Integer periodInMinutes = dia1.getIntervalBetweenChecks();
             String outputDir = Config.getProperty(Config.PATH_TO_OUTPUT);
             ComputeNodePermissionMap = dia1.getComputeNodesWithPermission();
             for (ComputeNode c : ComputeNodePermissionMap.keySet()) {
@@ -65,7 +65,7 @@ public class Launcher {
         //for better configuration :)
         try {
 
-            Launcher l = new Launcher(Utils.readFile(Config.getProperty(Config.PATH_TO_MODEL), StandardCharsets.UTF_8));
+            Launcher l = new Launcher(Utils.readFile("/Users/michele/workspace/trace-checking-service/conf/model.yml", StandardCharsets.UTF_8));
             System.out.println(l.getResults(l.dia.getComputeNodes().get(0)));
             Thread.sleep(4000);
             l.cancel();
