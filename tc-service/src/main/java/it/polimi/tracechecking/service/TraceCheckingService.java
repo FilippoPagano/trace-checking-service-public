@@ -58,9 +58,9 @@ public class TraceCheckingService {
     @GET
     @Path("/{id}/application")
     @Produces(MediaType.APPLICATION_JSON)
-    public Map<String, Map<String, Integer>> getTracingResults(@PathParam("id") String applicationId) {
+    public Map<String, Map<String, Boolean>> getTracingResults(@PathParam("id") String applicationId) {
 
-        Map<String, Map<String, Integer>> toReturn = new HashMap<String, Map<String, Integer>>();
+        Map<String, Map<String, Boolean>> toReturn = new HashMap<String, Map<String, Boolean>>();
 
         Launcher diaLauncher = applicationDrivers.get(applicationId);
 

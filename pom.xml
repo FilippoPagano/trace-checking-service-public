@@ -16,7 +16,6 @@
 		<module>common</module>
 		<module>tc-driver</module>
 		<module>cassandra-utils</module>
-		<module>hdfs-logging-library</module>
     <module>tc-service</module>
   </modules>
 

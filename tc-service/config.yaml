@@ -4,4 +4,4 @@ server:
   connector:
     type: http
     port: 8177
-transformationDir: ${TC_PROPERTIES_FILE}
+propertiesFilePath: ${TC_PROPERTIES_FILE}

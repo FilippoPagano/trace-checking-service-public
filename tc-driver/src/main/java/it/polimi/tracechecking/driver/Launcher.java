@@ -77,12 +77,15 @@ public class Launcher {
 
     }
 
-    public Map<String, Integer> getResults(ComputeNode c) { //GET # violations for every formula
-        Map<String, Integer> results = new HashMap<String, Integer>();
+    public Map<String, Boolean> getResults(ComputeNode c) {
+        Map<String, Boolean> results = new HashMap<String, Boolean>();
         Integer i = 1;
         for (Permission p : ComputeNodePermissionMap.get(c)) {
             String formula = p.getAsociatedMtlFormula();
-            results.put(formula, map.get(c).getViolations(c, i));
+            if(map.get(c).getViolations(c, i) == 1)
+                results.put(p.getId(), true);
+            else
+                results.put(formula, false);
             i++;
         }
         return results;
