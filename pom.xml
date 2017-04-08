@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>it.polimi</groupId>
 	<artifactId>tracechecking</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>trace-checking-service</name>
-	<description>A set of utility modules for working with Apache Cassandra.</description>
 
 	<properties>
 		<guava.version>19.0</guava.version>
@@ -16,8 +16,8 @@
 		<module>common</module>
 		<module>tc-driver</module>
 		<module>cassandra-utils</module>
-    <module>tc-service</module>
-  </modules>
+		<module>tc-service</module>
+	</modules>
 
 	<dependencyManagement>
 		<dependencies>
@@ -31,17 +31,10 @@
 				<artifactId>hadoop-client</artifactId>
 				<version>2.6.5</version>
 			</dependency>
-
 			<dependency>
 				<groupId>org.apache.spark</groupId>
-				<artifactId>spark-core_2.11</artifactId>
+				<artifactId>spark-launcher_2.11</artifactId>
 				<version>1.4.1</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-simple</artifactId>
-				<version>1.7.21</version>
 			</dependency>
 			<dependency>
 				<groupId>com.google.guava</groupId>
@@ -52,12 +45,6 @@
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
 				<version>3.8.1</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.mockito</groupId>
-				<artifactId>mockito-all</artifactId>
-				<version>1.8.4</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
