@@ -65,10 +65,10 @@ public class Launcher {
         //for better configuration :)
         try {
 
-            Launcher l = new Launcher(Utils.readFile("/Users/michele/workspace/trace-checking-service/conf/model.yml", StandardCharsets.UTF_8));
+            Launcher l = new Launcher(Utils.readFile("/home/filippo/IdeaProjects/trace-checking-service/conf/model.yml", StandardCharsets.UTF_8));
             System.out.println(l.getResults(l.dia.getComputeNodes().get(0)));
             Thread.sleep(4000);
-            l.cancel();
+            //l.cancel();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

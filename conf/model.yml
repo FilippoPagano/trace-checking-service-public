@@ -13,7 +13,7 @@ elements:
   - !computeNode 
     id: myStormCluster
     targetTech: STORM
-    pathToTrace: /user/filippo/traces
+    pathToTrace: /user/traces
     managed: FALSE
   - !dataset
     id: myDataset

@@ -22,7 +22,7 @@
     <!-- The basic File Upload plugin -->
 <script src="js/jquery.fileupload.js"></script>
 <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
-<link rel="stylesheet" href="css/jquery.fileupload.css">
+      <link rel="stylesheet" href="css/jquery.fileupload.css"/>
 	<script src="js/custom.js"></script>
     <link rel="stylesheet" href="css/style.css" />
   
@@ -37,16 +37,18 @@
         <legend>Pick one</legend>
         <div class="form-check">
           <label class="form-check-label">
-          <input type="radio" class="form-check-input" name="optionsRadios" id="upload" value="Upload" checked="checked"
-          required="" /> Upload</label>
+              <input type="radio" class="form-check-input" name="optionsRadios" id="upload" value="Upload"
+                     disabled="true"
+                     required="" /> Upload</label>
         </div>
         <div class="form-check">
           <label class="form-check-label">
-          <input type="radio" class="form-check-input" name="optionsRadios" id="paste" value="Paste" required="" />
+              <input type="radio" class="form-check-input" name="optionsRadios" id="paste" value="Paste" required=""
+                     checked="checked"/>
           Paste</label>
         </div>
       </fieldset>
-      <div class="form-group upload" style="">
+        <div class="form-group upload" style="display: none;">
  
 		 <span class="btn btn-success fileinput-button">
         <i class="glyphicon glyphicon-plus"></i>
@@ -63,7 +65,7 @@
     <!-- The container for the uploaded files -->
     <div id="files" class="files"></div>
       </div>
-      <div class="form-group paste" style="display: none;">
+        <div class="form-group paste" style="">
       <label for="exampleTextarea">Paste here</label> 
       <textarea class="form-control" id="exampleTextarea" rows="3"></textarea><br>
 	   <button type="submit" class="btn btn-primary">Submit</button></div>

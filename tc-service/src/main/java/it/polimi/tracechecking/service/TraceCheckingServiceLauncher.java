@@ -23,6 +23,6 @@ public class TraceCheckingServiceLauncher extends Application<TraceCheckingServi
     @Override
     public void run(TraceCheckingServiceConfiguration configuration, Environment environment) throws Exception {
         environment.jersey().register(new TraceCheckingService(configuration.getPropertiesFilePath()));
-
+        environment.jersey().register(CORSResponseFilter.class);
     }
 }

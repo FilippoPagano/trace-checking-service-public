@@ -1,6 +1,5 @@
 $(document).ready(function () {
 	$('textarea').autosize();
-	$('.paste').hide();
 	$('input[type=radio]').change(function () {
 		if (this.value == 'Upload') {
 			$('.paste').hide();
@@ -28,7 +27,9 @@ $(document).ready(function () {
 				url : "pathToYourFile",
 				async : false, // asynchronous request? (synchronous requests are discouraged...)
 				cache : false, // with this, you can force the browser to not make cache of the retrieved data
-				dataType : "text", // jQuery will infer this, but you can set explicitly
+				dataType : "text/plain", // jQuery will infer this, but you can set explicitly
+contentType: "text/plain",
+           crossDomain: true,
 				success : function (data, textStatus, jqXHR) {
 					var resourceContent = data; // can be a global variable too...
 					// process the content...
@@ -36,6 +37,7 @@ $(document).ready(function () {
 			});
 		}
 		if ($('#paste').is(':checked')) {
+var data = $('#exampleTextarea').val();
 			/*$('#file').fileUpload({
 			namespace : 'file_upload_1',
 			url : '/path/to/upload/handler.json',
@@ -43,10 +45,11 @@ $(document).ready(function () {
 			});*/
 			$.ajax({
 				type : "POST",
-				url : url,
+				url : 'http://localhost:8177/trace-checking-service/application',
 				data : data,
-				success : success,
-				dataType : dataType
+dataType: "text/plain",
+contentType: "text/plain",
+crossDomain: true
 			});
 		}
 
@@ -56,7 +59,7 @@ $(function () {
     'use strict';
     // Change this to the location of your server-side upload handler:
     var url = window.location.hostname === 'blueimp.github.io' ?
-                '//jquery-file-upload.appspot.com/' : 'server/php/';
+                '//jquery-file-upload.appspot.com/' : 'server/php';
     $('#fileupload').fileupload({
         url: url,
         dataType: 'json',
