@@ -47,14 +47,40 @@ var data = $('#exampleTextarea').val();
 				type : "POST",
 				url : 'http://localhost:8177/trace-checking-service/application',
 				data : data,
-dataType: "text/plain",
 contentType: "text/plain",
 crossDomain: true
+			}).fail(function(jqXHR, textStatus, errorThrown){console.log(jqXHR);alert(textStatus);alert(errorThrown);}).done(function (data){console.log(data);
+			$('.list').append("<li>"+data.applicationId+"<span class='glyphicon glyphicon-remove'></span></li>");
+			rebind();
 			});
 		}
 
 	});
 });
+function rebind(){
+	$('li').prop('onclick',null).off('click');
+	
+	$('li').click(function(){
+		var which =  $( this ).text();
+		$('#which').text(which);
+		$.ajax({
+			type : "GET",
+				url : 'http://localhost:8177/trace-checking-service/'+ which +'/application',
+contentType: "text/plain",
+crossDomain: true
+		}).fail(function(jqXHR, textStatus, errorThrown){console.log(jqXHR);alert(textStatus);alert(errorThrown);});
+	});
+	$('.glyphicon-remove').prop('onclick',null).off('click');
+	$('.glyphicon-remove').click(function(){
+		var which =  $( this ).closest('li').text();
+		event.stopPropagation();
+		$.ajax({
+			type : "DELETE",
+				url : 'http://localhost:8177/trace-checking-service/'+ which +'/application',
+crossDomain: true
+		}).fail(function(jqXHR, textStatus, errorThrown){console.log(jqXHR);alert(textStatus);alert(errorThrown);});
+	});
+}
 $(function () {
     'use strict';
     // Change this to the location of your server-side upload handler:
