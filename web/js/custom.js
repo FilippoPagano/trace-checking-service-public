@@ -61,6 +61,7 @@ function rebind(){
 	$('li').prop('onclick',null).off('click');
 	
 	$('li').click(function(){
+$("#status").text("");
 		var which =  $( this ).text();
 		$('#which').text(which);
 		$.ajax({
@@ -68,7 +69,23 @@ function rebind(){
 				url : 'http://localhost:8177/trace-checking-service/'+ which +'/application',
 contentType: "text/plain",
 crossDomain: true
-		}).fail(function(jqXHR, textStatus, errorThrown){console.log(jqXHR);alert(textStatus);alert(errorThrown);});
+		}).done(function (data){
+for (var node in data) {
+    // skip loop if the property is from prototype
+    if (!data.hasOwnProperty(node)) continue;
+
+    var obj = data[node];
+    for (var formula in obj) {
+        // skip loop if the property is from prototype
+        if(!obj.hasOwnProperty(formula)) continue;
+
+        // your code
+$("#status").append(formula + " = " + obj[formula] + "<br>")
+       // alert(formula + " = " + obj[formula]);
+
+    }
+};
+}).fail(function(jqXHR, textStatus, errorThrown){console.log(jqXHR);alert(textStatus);alert(errorThrown);});
 	});
 	$('.glyphicon-remove').prop('onclick',null).off('click');
 	$('.glyphicon-remove').click(function(){

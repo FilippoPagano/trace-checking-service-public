@@ -1,27 +1,18 @@
 package it.polimi.tracechecking.service;
 
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-
+import it.polimi.tracechecking.common.model.ComputeNode;
+import it.polimi.tracechecking.driver.Config;
+import it.polimi.tracechecking.driver.Launcher;
 import org.apache.hadoop.yarn.exceptions.ApplicationNotFoundException;
 import org.apache.log4j.BasicConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import it.polimi.tracechecking.common.model.ComputeNode;
-import it.polimi.tracechecking.driver.Config;
-import it.polimi.tracechecking.driver.Launcher;;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 @Path("/trace-checking-service")
 public class TraceCheckingService {
@@ -61,15 +52,18 @@ public class TraceCheckingService {
     public Map<String, Map<String, Boolean>> getTracingResults(@PathParam("id") String applicationId) {
 
         Map<String, Map<String, Boolean>> toReturn = new HashMap<String, Map<String, Boolean>>();
-
-        Launcher diaLauncher = applicationDrivers.get(applicationId);
+        try {
+            Launcher diaLauncher = applicationDrivers.get(this.getApplicationById(applicationId));
 
         for (ComputeNode c : diaLauncher.getDia().getComputeNodes()) {
 
             toReturn.put(c.getId(), diaLauncher.getResults(c));
 
         }
-
+        } catch (ApplicationNotFoundException e) {
+            log.error(e.getMessage());
+            return toReturn;
+        }
         return toReturn;
     }
 
