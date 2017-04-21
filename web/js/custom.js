@@ -49,7 +49,7 @@ var data = $('#exampleTextarea').val();
 				data : data,
 contentType: "text/plain",
 crossDomain: true
-			}).fail(function(jqXHR, textStatus, errorThrown){console.log(jqXHR);alert(textStatus);alert(errorThrown);}).done(function (data){console.log(data);
+			}).fail(function(jqXHR, textStatus, errorThrown){console.log(jqXHR);alert(textStatus);alert(errorThrown);alert(jqXHR.responseText);}).done(function (data){console.log(data);
 			$('.list').append("<li>"+data.applicationId+"<span class='glyphicon glyphicon-remove'></span></li>");
 			rebind();
 			});
@@ -73,7 +73,7 @@ crossDomain: true
 for (var node in data) {
     // skip loop if the property is from prototype
     if (!data.hasOwnProperty(node)) continue;
-
+$("#status").append(node +":<br>");
     var obj = data[node];
     for (var formula in obj) {
         // skip loop if the property is from prototype
@@ -85,7 +85,7 @@ $("#status").append(formula + " = " + obj[formula] + "<br>")
 
     }
 };
-}).fail(function(jqXHR, textStatus, errorThrown){console.log(jqXHR);alert(textStatus);alert(errorThrown);});
+}).fail(function(jqXHR, textStatus, errorThrown){console.log(jqXHR);alert(textStatus);alert(errorThrown);alert(jqXHR.responseText);});
 	});
 	$('.glyphicon-remove').prop('onclick',null).off('click');
 	$('.glyphicon-remove').click(function(){
@@ -95,7 +95,7 @@ $("#status").append(formula + " = " + obj[formula] + "<br>")
 			type : "DELETE",
 				url : 'http://localhost:8177/trace-checking-service/'+ which +'/application',
 crossDomain: true
-		}).fail(function(jqXHR, textStatus, errorThrown){console.log(jqXHR);alert(textStatus);alert(errorThrown);});
+		}).fail(function(jqXHR, textStatus, errorThrown){console.log(jqXHR);alert(textStatus);alert(errorThrown);alert(jqXHR.responseText);});
 	});
 }
 $(function () {

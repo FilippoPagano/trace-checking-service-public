@@ -83,9 +83,9 @@ public class Launcher {
         for (Permission p : ComputeNodePermissionMap.get(c)) {
             String formula = p.getAsociatedMtlFormula();
             if(map.get(c).getViolations(c, i) == 1)
-                results.put(formula, true);
+                results.put(p.getId(), true);
             else
-                results.put(formula, false);
+                results.put(p.getId(), false);
             i++;
         }
         return results;
