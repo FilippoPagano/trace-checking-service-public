@@ -3,8 +3,10 @@ package it.polimi.tracechecking.service;
 import it.polimi.tracechecking.common.model.ComputeNode;
 import it.polimi.tracechecking.driver.Config;
 import it.polimi.tracechecking.driver.Launcher;
+import it.polimi.tracechecking.driver.hdfsLogger;
 import org.apache.hadoop.yarn.exceptions.ApplicationNotFoundException;
 import org.apache.log4j.BasicConfigurator;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,6 +46,19 @@ public class TraceCheckingService {
 
         return app;
 
+    }
+
+    @POST
+    @Path("/log")
+    @Produces(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.TEXT_PLAIN)
+    public String logEvent(String eventToLog) {
+
+        hdfsLogger hdfsLogger = new hdfsLogger();
+        hdfsLogger.write(eventToLog);
+        JSONObject ret = new JSONObject();
+        ret.put("result", "ok");
+        return ret.toString();
     }
 
     @GET

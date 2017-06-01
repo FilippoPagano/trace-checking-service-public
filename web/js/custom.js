@@ -14,8 +14,21 @@ $(document).ready(function () {
 		event.preventDefault();
 		// This cancels the event...
 	});
+$('.logButton').click(function () {
+var logLine = $('#logLine').val();
+	$.ajax({
+				type : "POST",
+				url : 'http://localhost:8177/trace-checking-service/log',
+				data : logLine,
+contentType: "text/plain",
+crossDomain: true
+			}).fail(function(jqXHR, textStatus, errorThrown){console.log(jqXHR);alert(textStatus);alert(errorThrown);alert(jqXHR.responseText);}).done(function (data){console.log(data);
+			$('.list').append("<li>"+data.applicationId+"<span class='glyphicon glyphicon-remove'></span></li>");
+			rebind();
+			});
+});
 	// This should fire your window opener...
-	$('button').click(function () {
+	$('.modelPasteButton').click(function () {
 		console.log('submit funcition is here');
 		if ($('#upload').is(':checked')) {
 			/*$('#file').fileUpload({
@@ -88,14 +101,15 @@ $("#status").append(formula + " = " + obj[formula] + "<br>")
 }).fail(function(jqXHR, textStatus, errorThrown){console.log(jqXHR);alert(textStatus);alert(errorThrown);alert(jqXHR.responseText);});
 	});
 	$('.glyphicon-remove').prop('onclick',null).off('click');
-	$('.glyphicon-remove').click(function(){
+	$('.glyphicon-remove').click(function(event){
 		var which =  $( this ).closest('li').text();
 		event.stopPropagation();
 		$.ajax({
 			type : "DELETE",
 				url : 'http://localhost:8177/trace-checking-service/'+ which +'/application',
 crossDomain: true
-		}).fail(function(jqXHR, textStatus, errorThrown){console.log(jqXHR);alert(textStatus);alert(errorThrown);alert(jqXHR.responseText);});
+		}).fail(function(jqXHR, textStatus, errorThrown){
+console.log(jqXHR);alert(textStatus);alert(errorThrown);alert(jqXHR.responseText);});
 	});
 }
 $(function () {

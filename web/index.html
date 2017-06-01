@@ -32,6 +32,11 @@
       <h1>DICE trace-checker interface 
       <small>Upload or paste model</small></h1>
     </div>
+    <div id="LogEvent">
+      <label for="logLine">Paste log line here</label>
+      <textarea class="form-control" id="logLine" rows="1"></textarea><br>
+      <button type="submit" class="btn btn-primary logButton">Submit</button>
+    </div>
     <div id="Apps"><h2>Apps</h2>
         <ul class="list"></ul>
     </div>
@@ -75,7 +80,8 @@
         <div class="form-group paste" style="">
       <label for="exampleTextarea">Paste here</label> 
       <textarea class="form-control" id="exampleTextarea" rows="3"></textarea><br>
-	   <button type="submit" class="btn btn-primary">Submit</button></div>
+          <button type="submit" class="btn btn-primary modelPasteButton">Submit</button>
+        </div>
      
     </form>
 

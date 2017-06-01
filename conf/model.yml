@@ -44,7 +44,7 @@ elements:
     validityEndTime: 2001-09-10T01:46:40Z
     actionType: READ
   - !permission
-    id: myStormClusterCanAccessMyDataset
+    id: myStormClusterCanAccessMyDataset2
     userCluster: myStormCluster
     asociatedMtlFormula: -F-[0,1000000]p
     protectedElement: Id
