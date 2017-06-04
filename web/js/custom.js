@@ -27,6 +27,23 @@ crossDomain: true
 			rebind();
 			});
 });
+$('.logFileButton').click(function () {
+var obj = {};
+obj.logFileName=$('#logFileName').val();
+obj.logFileText=$('#logFileText').val();
+var data=JSON.stringify(obj).toString();
+
+	$.ajax({
+				type : "POST",
+				url : 'http://localhost:8177/trace-checking-service/loadLogFile',
+				data : data,
+contentType: "text/plain",
+crossDomain: true
+			}).fail(function(jqXHR, textStatus, errorThrown){console.log(jqXHR);alert(textStatus);alert(errorThrown);alert(jqXHR.responseText);}).done(function (data){console.log(data);
+			$('.list').append("<li>"+data.applicationId+"<span class='glyphicon glyphicon-remove'></span></li>");
+			rebind();
+			});
+});
 	// This should fire your window opener...
 	$('.modelPasteButton').click(function () {
 		console.log('submit funcition is here');

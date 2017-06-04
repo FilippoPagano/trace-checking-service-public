@@ -61,6 +61,21 @@ public class TraceCheckingService {
         return ret.toString();
     }
 
+    @POST
+    @Path("/loadLogFile")
+    @Produces(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.TEXT_PLAIN)
+    public String logEventFile(String input) {
+        JSONObject jsonObj = new JSONObject(input);
+        String logFilePath = jsonObj.getString("logFileName");
+        String logFileText = jsonObj.getString("logFileText");
+        hdfsLogger hdfsLogger = new hdfsLogger();
+        hdfsLogger.writeFile(logFilePath, logFileText);
+        JSONObject ret = new JSONObject();
+        ret.put("result", "ok");
+        return ret.toString();
+    }
+
     @GET
     @Path("/{id}/application")
     @Produces(MediaType.APPLICATION_JSON)
