@@ -1,19 +1,17 @@
 package it.polimi.tracechecking.initializer;
 
+import com.datastax.driver.core.Cluster;
+import com.datastax.driver.core.ResultSet;
+import com.datastax.driver.core.Session;
+import it.polimi.tracechecking.common.model.Attribute;
+import it.polimi.tracechecking.common.model.Dataset;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.datastax.driver.core.Cluster;
-import com.datastax.driver.core.ResultSet;
-import com.datastax.driver.core.Session;
-
-import it.polimi.tracechecking.common.model.Attribute;
-import it.polimi.tracechecking.common.model.Dataset;
 
 public class CassandraDriver {
 
@@ -118,9 +116,8 @@ public class CassandraDriver {
     }
 
     public ResultSet retrieveCassandraTable(String keyspace, String table) {
-        ResultSet toReturn = session.execute("SELECT * FROM " + keyspace + "." + table + ";");
 
-        return toReturn;
+        return session.execute("SELECT * FROM " + keyspace + "." + table + ";");
     }
 
     public void close() {

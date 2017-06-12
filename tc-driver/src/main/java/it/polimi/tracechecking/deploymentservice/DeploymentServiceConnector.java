@@ -98,10 +98,9 @@ public class DeploymentServiceConnector {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        VmsCluster cluster = new VmsCluster(clusterId);
         //TODO: set addresses list
         //cluster.setAddresses(List<String> addresses);
-        return cluster;
+        return new VmsCluster(clusterId);
     }
 
     public List<VmsCluster> getClusters(DIA dia) {

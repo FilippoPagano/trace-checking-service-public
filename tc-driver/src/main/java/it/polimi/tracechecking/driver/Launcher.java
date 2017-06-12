@@ -48,13 +48,10 @@ public class Launcher {
                 CheckingClock cc = new CheckingClock(periodInMinutes, c.getPathToTrace(), pathToFormoulae, computeNodeDir + File.separator + "output");
                 map.put(c, cc);
             }
-        } catch (IOException e) {
+        } catch (IOException | DIAElementNotFoundException e) {
             e.printStackTrace();
             dia1 = null;
-        } catch (DIAElementNotFoundException e) {
-            e.printStackTrace();
-            dia1 = null;
-        }
+        } 
         this.dia = dia1;
     }
 
@@ -69,9 +66,7 @@ public class Launcher {
             System.out.println(l.getResults(l.dia.getComputeNodes().get(0)));
             Thread.sleep(4000);
             //l.cancel();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
 

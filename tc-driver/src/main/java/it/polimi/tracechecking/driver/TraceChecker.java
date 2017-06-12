@@ -75,7 +75,7 @@ public class TraceChecker {
         for (String path : resultsContainer) {
             Integer thisFormula = Utils.getEndingNumber(path);
 
-            if (thisFormula == formulaIndex) i++;
+            if (thisFormula.equals(formulaIndex)) i++;
         }
 
         return i;

@@ -153,7 +153,7 @@ public class TraceCheckingService {
                 return app;
         }
 
-        throw new ApplicationNotFoundException("Application with id " + appId + " is currently not registerd.");
+        throw new ApplicationNotFoundException("Application with id " + appId + " is currently not registered.");
     }
 
 }

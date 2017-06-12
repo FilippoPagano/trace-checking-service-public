@@ -1,8 +1,6 @@
 package it.polimi.tracechecking.common.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Attribute extends DIAElement {
@@ -53,13 +51,13 @@ public class Attribute extends DIAElement {
 		return isQuasiIdentifier;
 	}
 
-	public Boolean getIsSensitive() {
-		return isSensitive;
-	}
-
 	public void setIsQuasiIdentifier(Boolean isQuasiIdentifier) {
 		this.isQuasiIdentifier = isQuasiIdentifier;
 	}
+
+    public Boolean getIsSensitive() {
+        return isSensitive;
+    }
 
 	public void setIsSensitive(Boolean isSensitive) {
 		this.isSensitive = isSensitive;
