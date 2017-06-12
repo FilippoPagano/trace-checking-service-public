@@ -38,6 +38,30 @@ public class hdfsLogger {
         }
     }
 
+    public void write(String appId, String computeNode, String content) {
+        Configuration config = new Configuration();
+        config.set("dfs.client.block.write.replace-datanode-on-failure.policy", "NEVER"); //magic
+
+        FileSystem fs;
+        try {
+            fs = FileSystem.get(new URI("hdfs://localhost:9000"), config);
+            Path filenamePath = new Path("/" + appId + "/" + computeNode + "/trace1");
+            if (!fs.exists(filenamePath)) {
+                fs.create(filenamePath, true);
+                fs.close();
+                fs = FileSystem.get(new URI("hdfs://localhost:9000"), config);
+            }
+
+            BufferedWriter br = new BufferedWriter(new OutputStreamWriter(fs.append(filenamePath)));
+            br.write(content + "\n");
+            br.close();
+            fs.close();
+        } catch (IOException | URISyntaxException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
     public void writeFile(String path, String text) {
         Configuration config = new Configuration();
         config.set("dfs.client.block.write.replace-datanode-on-failure.policy", "NEVER"); //magic
@@ -58,6 +82,41 @@ public class hdfsLogger {
 
             BufferedWriter br = new BufferedWriter(new OutputStreamWriter(fs.append(filenamePath)));
             br.write(text + "\n");
+            br.close();
+            fs.close();
+        } catch (IOException | URISyntaxException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    public void writeNewFile(String applicationId, String computeNode, String logFileText) {
+        Configuration config = new Configuration();
+        config.set("dfs.client.block.write.replace-datanode-on-failure.policy", "NEVER"); //magic
+
+        FileSystem fs;
+        try {
+            fs = FileSystem.get(new URI("hdfs://localhost:9000"), config);
+            Integer i = 1;
+            Path tentativePath = new Path("/" + applicationId + "/" + computeNode + "/trace" + i);
+
+            while (fs.exists(tentativePath)) {
+                i++;
+                tentativePath = new Path("/" + applicationId + "/" + computeNode + "/trace" + i);
+            }
+            Path filenamePath = tentativePath;
+            if (!fs.exists(filenamePath)) {
+                fs.create(filenamePath, true);
+                fs.close();
+                fs = FileSystem.get(new URI("hdfs://localhost:9000"), config);
+            } else {
+                //TODO: raise exception or overwrite?
+                //Right now it just appends
+                //to overwrite: fs.create(filenamePath, true);
+            }
+
+            BufferedWriter br = new BufferedWriter(new OutputStreamWriter(fs.append(filenamePath)));
+            br.write(logFileText + "\n");
             br.close();
             fs.close();
         } catch (IOException | URISyntaxException e) {

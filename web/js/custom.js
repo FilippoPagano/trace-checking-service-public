@@ -14,6 +14,44 @@ $(document).ready(function () {
 		event.preventDefault();
 		// This cancels the event...
 	});
+$('.logAppCNButton').click(function () {
+
+var obj = {};
+obj.appId=$('#appIdSingle').val();
+obj.computeNode=$('#computeNodeSingle').val();
+obj.eventToLog=$('#logTextAppCN').val();
+var data=JSON.stringify(obj).toString();
+
+	$.ajax({
+				type : "POST",
+				url : 'http://localhost:8177/trace-checking-service/'+obj.appId+'/log',
+				data : data,
+contentType: "text/plain",
+crossDomain: true
+			}).fail(function(jqXHR, textStatus, errorThrown){console.log(jqXHR);alert(textStatus);alert(errorThrown);alert(jqXHR.responseText);}).done(function (data){console.log(data);
+			$('.list').append("<li>"+data.applicationId+"<span class='glyphicon glyphicon-remove'></span></li>");
+			rebind();
+			});
+});
+$('.logFileAppCNButton').click(function () {
+
+var obj = {};
+obj.appId=$('#appId').val();
+obj.computeNode=$('#computeNode').val();
+obj.logFileText=$('#logFileTextAppCN').val();
+var data=JSON.stringify(obj).toString();
+
+	$.ajax({
+				type : "POST",
+				url : 'http://localhost:8177/trace-checking-service/'+obj.appId+'/loadLogFile',
+				data : data,
+contentType: "text/plain",
+crossDomain: true
+			}).fail(function(jqXHR, textStatus, errorThrown){console.log(jqXHR);alert(textStatus);alert(errorThrown);alert(jqXHR.responseText);}).done(function (data){console.log(data);
+			$('.list').append("<li>"+data.applicationId+"<span class='glyphicon glyphicon-remove'></span></li>");
+			rebind();
+			});
+});
 $('.logButton').click(function () {
 var logLine = $('#logLine').val();
 	$.ajax({

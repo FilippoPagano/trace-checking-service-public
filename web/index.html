@@ -1,97 +1,117 @@
 <!DOCTYPE HTML>
 <html>
-  <head>
+<head>
     <meta name="generator"
-    content="HTML Tidy for HTML5 (experimental) for Windows https://github.com/w3c/tidy-html5/tree/c63cc39" />
+          content="HTML Tidy for HTML5 (experimental) for Windows https://github.com/w3c/tidy-html5/tree/c63cc39"/>
     <title></title>
     <!-- Latest compiled and minified CSS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-    integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous" />
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
     <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
-<script src="js/jquery.ui.widget.js"></script>
-	<script src="js/autosize.js" type="text/javascript"></script>
-	<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
-<script src="js/jquery.iframe-transport.js"></script>
+    <script src="js/jquery.ui.widget.js"></script>
+    <script src="js/autosize.js" type="text/javascript"></script>
+    <!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
+    <script src="js/jquery.iframe-transport.js"></script>
     <!-- The basic File Upload plugin -->
-<script src="js/jquery.fileupload.js"></script>
-<!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
-      <link rel="stylesheet" href="css/jquery.fileupload.css"/>
-	<script src="js/custom.js"></script>
+    <script src="js/jquery.fileupload.js"></script>
+    <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+    <link rel="stylesheet" href="css/jquery.fileupload.css"/>
+    <script src="js/custom.js"></script>
     <link rel="stylesheet" href="css/style.css" />
-  
-  </head>
-  <body style=" margin-left: 5px;">
-    <div class="page-header">
-      <h1>DICE trace-checker interface 
-      <small>Upload or paste model</small></h1>
-    </div>
-    <div id="LogEventFile"><label for="logFileName">Paste log File here</label>
-        <input type="text" class="form-control" id="logFileName" rows="1"></textarea><br>
-        <label for="logFile">Paste log File here</label>
-        <textarea class="form-control" id="logFileText" rows="1"></textarea><br>
-        <button type="submit" class="btn btn-primary logFileButton">Submit</button>
-    </div>
-    </div>
-    <div id="LogEvent">
-        <label for="logLine">Paste log line here</label>
-        <textarea class="form-control" id="logLine" rows="1"></textarea><br>
-        <button type="submit" class="btn btn-primary logButton">Submit</button>
-    </div>
-    </div>
-    <div id="Apps"><h2>Apps</h2>
-        <ul class="list"></ul>
-    </div>
-    <div id="AppDetails"><h3>App details</h3>
-        <small id="which"></small>
-        <div id="status"></div>
-    </div>
-    <form>
-      <fieldset class="form-group">
+
+</head>
+<body style=" margin-left: 5px;">
+<div class="page-header">
+    <h1>DICE trace-checker interface
+        <small>Upload or paste model</small>
+    </h1>
+</div>
+<div id="LogEventAppCN"><label for="appIdSingle">Paste app id here</label>
+    <input type="text" class="form-control" id="appIdSingle" rows="1"></textarea><br>
+    <label for="computeNodeSingle">Paste compute node id here</label>
+    <input type="text" class="form-control" id="computeNodeSingle" rows="1"></textarea><br>
+    <label for="logTextAppCN">Paste log line here</label>
+    <textarea class="form-control" id="logTextAppCN" rows="1"></textarea><br>
+    <button type="submit" class="btn btn-primary logAppCNButton">Submit</button>
+</div>
+</div>
+<div id="LogEventFileAppCN"><label for="appId">Paste app id here</label>
+    <input type="text" class="form-control" id="appId" rows="1"></textarea><br>
+    <label for="logFileName">Paste compute node id here</label>
+    <input type="text" class="form-control" id="computeNode" rows="1"></textarea><br>
+    <label for="logFileTextAppCN">Paste log File here</label>
+    <textarea class="form-control" id="logFileTextAppCN" rows="1"></textarea><br>
+    <button type="submit" class="btn btn-primary logFileAppCNButton">Submit</button>
+</div>
+</div>
+<div id="LogEventFile"><label for="logFileName">Paste log File name here</label>
+    <input type="text" class="form-control" id="logFileName" rows="1"></textarea><br>
+    <label for="logFileText">Paste log File here</label>
+    <textarea class="form-control" id="logFileText" rows="1"></textarea><br>
+    <button type="submit" class="btn btn-primary logFileButton">Submit</button>
+</div>
+</div>
+<div id="LogEvent">
+    <label for="logLine">Paste log line here</label>
+    <textarea class="form-control" id="logLine" rows="1"></textarea><br>
+    <button type="submit" class="btn btn-primary logButton">Submit</button>
+</div>
+</div>
+<div id="Apps"><h2>Apps</h2>
+    <ul class="list"></ul>
+</div>
+<div id="AppDetails"><h3>App details</h3>
+    <small id="which"></small>
+    <div id="status"></div>
+</div>
+<form>
+    <fieldset class="form-group">
         <legend>Pick one</legend>
         <div class="form-check">
-          <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="optionsRadios" id="upload" value="Upload"
-                     disabled="true"
-                     required="" /> Upload</label>
+            <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="optionsRadios" id="upload" value="Upload"
+                       disabled="true"
+                       required=""/> Upload</label>
         </div>
         <div class="form-check">
-          <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="optionsRadios" id="paste" value="Paste" required=""
-                     checked="checked"/>
-          Paste</label>
+            <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="optionsRadios" id="paste" value="Paste" required=""
+                       checked="checked"/>
+                Paste</label>
         </div>
-      </fieldset>
-        <div class="form-group upload" style="display: none;">
- 
+    </fieldset>
+    <div class="form-group upload" style="display: none;">
+
 		 <span class="btn btn-success fileinput-button">
         <i class="glyphicon glyphicon-plus"></i>
         <span>Select files...</span>
-        <!-- The file input field used as target for the file upload widget -->
+             <!-- The file input field used as target for the file upload widget -->
         <input id="fileupload" type="file" name="files[]" multiple>
     </span>
-    <br>
-    <br>
-    <!-- The global progress bar -->
-    <div id="progress" class="progress">
-        <div class="progress-bar progress-bar-success"></div>
-    </div>
-    <!-- The container for the uploaded files -->
-    <div id="files" class="files"></div>
-      </div>
-        <div class="form-group paste" style="">
-      <label for="exampleTextarea">Paste here</label> 
-      <textarea class="form-control" id="exampleTextarea" rows="3"></textarea><br>
-            <button type="submit" class="btn btn-primary modelPasteButton">Submit</button>
+        <br>
+        <br>
+        <!-- The global progress bar -->
+        <div id="progress" class="progress">
+            <div class="progress-bar progress-bar-success"></div>
         </div>
-     
-    </form>
+        <!-- The container for the uploaded files -->
+        <div id="files" class="files"></div>
+    </div>
+    <div class="form-group paste" style="">
+        <label for="exampleTextarea">Paste here</label>
+        <textarea class="form-control" id="exampleTextarea" rows="3"></textarea><br>
+        <button type="submit" class="btn btn-primary modelPasteButton">Submit</button>
+    </div>
 
-  </body>
+</form>
+
+</body>
 </html>
