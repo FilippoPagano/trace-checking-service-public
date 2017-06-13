@@ -1,6 +1,5 @@
 package it.polimi.tracechecking.service;
 
-import it.polimi.tracechecking.common.model.ComputeNode;
 import it.polimi.tracechecking.driver.Config;
 import it.polimi.tracechecking.driver.Launcher;
 import it.polimi.tracechecking.driver.hdfsLogger;

@@ -3,8 +3,6 @@ package it.polimi.tracechecking.initializer;
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Session;
-import it.polimi.tracechecking.common.model.Attribute;
-import it.polimi.tracechecking.common.model.Dataset;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

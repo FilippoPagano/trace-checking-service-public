@@ -1,22 +1,16 @@
 package it.polimi.tracechecking.initializer;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-
-import java.util.Iterator;
-
+import com.datastax.driver.core.Cluster;
+import com.datastax.driver.core.Session;
+import it.polimi.tracechecking.common.ModelLoader;
+import it.polimi.tracechecking.common.model.DIA;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-import com.datastax.driver.core.Cluster;
-import com.datastax.driver.core.Session;
-
-import it.polimi.tracechecking.common.ModelLoader;
-import it.polimi.tracechecking.common.model.DIA;
-import it.polimi.tracechecking.common.model.DIAElement;
-import it.polimi.tracechecking.common.model.Dataset;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Iterator;
 
 public class CassandraInitializer {
 

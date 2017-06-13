@@ -1,6 +1,5 @@
 package it.polimi.tracechecking.driver;
 
-import it.polimi.tracechecking.common.model.ComputeNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,86 +1,84 @@
 package it.polimi.tracechecking.driver;
 
 import it.polimi.tracechecking.common.ModelLoader;
-import it.polimi.tracechecking.common.exception.DIAElementNotFoundException;
-import it.polimi.tracechecking.common.model.ComputeNode;
 import it.polimi.tracechecking.common.model.DIA;
-import it.polimi.tracechecking.common.model.Permission;
-import org.apache.log4j.BasicConfigurator;
+import it.polimi.tracechecking.common.model.Model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Launcher {
 
     private static final Logger logger = LoggerFactory.getLogger(Launcher.class);
-    private final DIA dia;
+    private final Model model;
     private List<CheckingClock> cks = new ArrayList<CheckingClock>();
-    private Map<ComputeNode, CheckingClock> map = new HashMap<ComputeNode, CheckingClock>();
-    private Map<ComputeNode, List<Permission>> ComputeNodePermissionMap = new HashMap<ComputeNode, List<Permission>>();
+    private Map<DIA, CheckingClock> map = new HashMap<ComputeNode, CheckingClock>();
+    // private Map<ComputeNode, List<Permission>> ComputeNodePermissionMap = new HashMap<ComputeNode, List<Permission>>();
 
-    public Launcher(String diaString) {
-        DIA dia1;
+    public Launcher(String modelString) {
+        Model model1;//DIA dia1;
         try {
-            dia1 = ModelLoader.loadInputModel(diaString);
-            Integer periodInMinutes = dia1.getIntervalBetweenChecks();
+            model1 = ModelLoader.loadInputModel(modelString);
             String outputDir = Config.getProperty(Config.PATH_TO_OUTPUT);
-            ComputeNodePermissionMap = dia1.getComputeNodesWithPermission();
-            for (ComputeNode c : ComputeNodePermissionMap.keySet()) {
+            //ComputeNodePermissionMap = dia1.getComputeNodesWithPermission();
+            for (DIA d : model1.getDIAs()) {
                 //Prepare dirs for each ComputeNode
-                String pathToFormoulae = outputDir + File.separator + c.getId() + File.separator + "formulae";
-                String computeNodeDir = outputDir + File.separator + c.getId();
+                String pathToFormoulae = outputDir + File.separator + d.getDiaName() + File.separator + "formulae";
+                String computeNodeDir = outputDir + File.separator + d.getDiaName();
                 File formulaeFile = new File(pathToFormoulae);
                 formulaeFile.mkdirs();
 
-                for (Permission p : ComputeNodePermissionMap.get(c)) {
                     //Put each formula in a file
-                    List<String> lines = Arrays.asList(p.getAsociatedMtlFormula());
-                    Files.write(Paths.get(pathToFormoulae + File.separator + "formula" + (ComputeNodePermissionMap.get(c).indexOf(p) + 1)), lines, Charset.forName("UTF-8"));
+                // List<String> lines = Arrays.asList(p.getAsociatedMtlFormula());
+                Files.write(Paths.get(pathToFormoulae + File.separator + "formula" + d.getDiaName()), d.getMtlFormulae(), Charset.forName("UTF-8"));
 
-                }
-                CheckingClock cc = new CheckingClock(periodInMinutes, c.getPathToTrace(), pathToFormoulae, computeNodeDir + File.separator + "output");
-                map.put(c, cc);
+
+                CheckingClock cc = new CheckingClock(d.getIntervalBetweenChecks(), "/" + d.getDiaName() + "/", pathToFormoulae, computeNodeDir + File.separator + "output");
+                map.put(d, cc);
             }
-        } catch (IOException | DIAElementNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-            dia1 = null;
-        } 
-        this.dia = dia1;
-    }
-
-    public static void main(String args[]) {
-        Config.loadConfig("/home/filippo/IdeaProjects/trace-checking-service/conf/config.properties");
-        BasicConfigurator.configure();
-        //TODO: read http://stackoverflow.com/questions/12532339/no-appenders-could-be-found-for-loggerlog4j
-        //for better configuration :)
-        try {
-
-            Launcher l = new Launcher(Utils.readFile("/home/filippo/IdeaProjects/trace-checking-service/conf/model.yml", StandardCharsets.UTF_8));
-            System.out.println(l.getResults(l.dia.getComputeNodes().get(0)));
-            Thread.sleep(4000);
-            //l.cancel();
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
+            model1 = null;
         }
-
+        this.model = model1;
     }
 
-    public Map<String, Boolean> getResults(ComputeNode c) {
+    /*
+        public static void main(String args[]) {
+            Config.loadConfig("/home/filippo/IdeaProjects/trace-checking-service/conf/config.properties");
+            BasicConfigurator.configure();
+            //TODO: read http://stackoverflow.com/questions/12532339/no-appenders-could-be-found-for-loggerlog4j
+            //for better configuration :)
+            try {
+
+                Launcher l = new Launcher(Utils.readFile("/home/filippo/IdeaProjects/trace-checking-service/conf/model.yml", StandardCharsets.UTF_8));
+                System.out.println(l.getResults(l.dia.getComputeNodes().get(0)));
+                Thread.sleep(4000);
+                //l.cancel();
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        }
+    */
+    public Map<String, Boolean> getResults(DIA c) {
         Map<String, Boolean> results = new HashMap<String, Boolean>();
         Integer i = 1;
-        for (Permission p : ComputeNodePermissionMap.get(c)) {
-            String formula = p.getAsociatedMtlFormula();
+        for (String s : c.getMtlFormulae()) {
+            String formula = s;
             if(map.get(c).getViolations(c, i) == 1)
-                results.put(p.getId(), true);
+                results.put(s, true);
             else
-                results.put(p.getId(), false);
+                results.put(s, false);
             i++;
         }
         return results;
@@ -92,7 +90,7 @@ public class Launcher {
         }
     }
 
-    public DIA getDia() {
-        return dia;
+    public Model getModel() {
+        return model;
     }
 }

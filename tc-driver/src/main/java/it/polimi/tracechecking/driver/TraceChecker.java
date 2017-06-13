@@ -1,6 +1,5 @@
 package it.polimi.tracechecking.driver;
 
-import it.polimi.tracechecking.common.model.ComputeNode;
 import org.apache.spark.launcher.SparkLauncher;
 
 import java.io.File;

@@ -1,54 +1,14 @@
---- !!it.polimi.cassandra.utils.common.model.DIA
-diaName: myDia
-intervalBetweenChecks: 5
-elements:
-  - !storageNode 
-    id: myCassandraCluster
-    clusterContactPoint: 10.10.10.100
-    clusterContactPort: 9042  
-    userId: tcers
-    password: polimi
-    targetTech: CASSANDRA
-    managed: TRUE
-  - !computeNode 
-    id: myStormCluster
-    targetTech: STORM
-    pathToTrace: /user/traces
-    managed: FALSE
-  - !dataset
-    id: myDataset
-    replicationFactor: 1
-    providedBy: myCassandraCluster
-    attributes:
-      - id: Id
-        isKey: true
-        type: int
-      - id: Zip
-        isQuasiIdentifier: true
-        type: text
-      - id: Age
-        isQuasiIdentifier: true
-        type: int
-      - id: Nationality
-        type: text
-      - id: Problem
-        isSensitive: true
-        type: text
-  - !permission
-    id: myStormClusterCanAccessMyDataset
-    userCluster: myStormCluster
-    asociatedMtlFormula: a-U-(c|b)
-    protectedElement: Id
-    protectionLevel: attribute
-    validityStartTime: 2001-09-09T01:46:40Z
-    validityEndTime: 2001-09-10T01:46:40Z
-    actionType: READ
-  - !permission
-    id: myStormClusterCanAccessMyDataset2
-    userCluster: myStormCluster
-    asociatedMtlFormula: -F-[0,1000000]p
-    protectedElement: Id
-    protectionLevel: attribute
-    validityStartTime: 2001-09-09T01:46:40Z
-    validityEndTime: 2001-09-10T01:46:40Z
-    actionType: READ
+--- !!it.polimi.tracechecking.common.model.Model
+DIAs:
+- !DIA
+  diaName: myDia
+  intervalBetweenChecks: 5
+  mtlFormulae:
+    - "abc"
+    - "def"
+- !DIA
+  diaName: myDia2
+  intervalBetweenChecks: 5
+  mtlFormulae:
+    - "ghi"
+    - "lmn"
