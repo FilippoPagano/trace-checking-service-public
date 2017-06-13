@@ -2,13 +2,6 @@
 DIAs:
 - !DIA
   diaName: myDia
-  intervalBetweenChecks: 5
+  intervalBetweenChecks: 1
   mtlFormulae:
-    - "abc"
-    - "def"
-- !DIA
-  diaName: myDia2
-  intervalBetweenChecks: 5
-  mtlFormulae:
-    - "ghi"
-    - "lmn"
+    - "<FORMULA>"
