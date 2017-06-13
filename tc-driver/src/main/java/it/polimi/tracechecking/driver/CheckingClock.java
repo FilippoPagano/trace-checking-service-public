@@ -3,6 +3,8 @@ package it.polimi.tracechecking.driver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import it.polimi.tracechecking.common.model.DIA;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -29,7 +31,7 @@ public class CheckingClock {
     }
 
 
-    public Integer getViolations(ComputeNode c, Integer formulaIndex) {
+    public Integer getViolations(DIA c, Integer formulaIndex) {
         return TraceChecker.getViolations(c, formulaIndex);
     }
 

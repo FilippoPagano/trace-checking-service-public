@@ -21,7 +21,7 @@ public class Launcher {
     private static final Logger logger = LoggerFactory.getLogger(Launcher.class);
     private final Model model;
     private List<CheckingClock> cks = new ArrayList<CheckingClock>();
-    private Map<DIA, CheckingClock> map = new HashMap<ComputeNode, CheckingClock>();
+    private Map<DIA, CheckingClock> map = new HashMap<DIA, CheckingClock>();
     // private Map<ComputeNode, List<Permission>> ComputeNodePermissionMap = new HashMap<ComputeNode, List<Permission>>();
 
     public Launcher(String modelString) {
@@ -31,18 +31,18 @@ public class Launcher {
             String outputDir = Config.getProperty(Config.PATH_TO_OUTPUT);
             //ComputeNodePermissionMap = dia1.getComputeNodesWithPermission();
             for (DIA d : model1.getDIAs()) {
-                //Prepare dirs for each ComputeNode
+                //Prepare dirs for each DIA
                 String pathToFormoulae = outputDir + File.separator + d.getDiaName() + File.separator + "formulae";
-                String computeNodeDir = outputDir + File.separator + d.getDiaName();
+                String diaDir = outputDir + File.separator + d.getDiaName();
                 File formulaeFile = new File(pathToFormoulae);
                 formulaeFile.mkdirs();
 
                     //Put each formula in a file
                 // List<String> lines = Arrays.asList(p.getAsociatedMtlFormula());
-                Files.write(Paths.get(pathToFormoulae + File.separator + "formula" + d.getDiaName()), d.getMtlFormulae(), Charset.forName("UTF-8"));
+                Files.write(Paths.get(pathToFormoulae + File.separator + "formula_" + d.getDiaName()), d.getMtlFormulae(), Charset.forName("UTF-8"));
 
 
-                CheckingClock cc = new CheckingClock(d.getIntervalBetweenChecks(), "/" + d.getDiaName() + "/", pathToFormoulae, computeNodeDir + File.separator + "output");
+                CheckingClock cc = new CheckingClock(d.getIntervalBetweenChecks(), "/" + d.getDiaName() + "/", pathToFormoulae, diaDir + File.separator + "output");
                 map.put(d, cc);
             }
         } catch (IOException e) {

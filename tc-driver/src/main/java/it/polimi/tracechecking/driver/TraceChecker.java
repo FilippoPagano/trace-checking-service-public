@@ -2,6 +2,8 @@ package it.polimi.tracechecking.driver;
 
 import org.apache.spark.launcher.SparkLauncher;
 
+import it.polimi.tracechecking.common.model.DIA;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -62,11 +64,11 @@ public class TraceChecker {
         }
     }
 
-    public static Integer getViolations(ComputeNode c, Integer formulaIndex) {
+    public static Integer getViolations(DIA c, Integer formulaIndex) {
         List<String> resultsContainer = new ArrayList<String>();
         Integer i = 0;
         try {
-            File pathToOutput = new File(Config.getProperty(Config.PATH_TO_OUTPUT) + File.separator + c.getId());
+            File pathToOutput = new File(Config.getProperty(Config.PATH_TO_OUTPUT) + File.separator + c.getDiaName());
             Utils.searchFiles(pathToOutput, "false", resultsContainer);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
