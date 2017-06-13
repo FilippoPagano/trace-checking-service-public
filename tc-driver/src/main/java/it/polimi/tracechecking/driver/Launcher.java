@@ -33,7 +33,7 @@ public class Launcher {
             for (DIA d : model1.getDIAs()) {
                 //Prepare dirs for each DIA
                 String pathToFormoulae = outputDir + File.separator + d.getDiaName() + File.separator + "formulae";
-                String diaDir = outputDir + File.separator + d.getDiaName();
+                String outputFile = outputDir + File.separator + d.getDiaName() + File.separator + "output";
                 File formulaeFile = new File(pathToFormoulae);
                 formulaeFile.mkdirs();
 
@@ -42,7 +42,7 @@ public class Launcher {
                 Files.write(Paths.get(pathToFormoulae + File.separator + "formula_" + d.getDiaName()), d.getMtlFormulae(), Charset.forName("UTF-8"));
 
 
-                CheckingClock cc = new CheckingClock(d.getIntervalBetweenChecks(), "/" + d.getDiaName() + "/", pathToFormoulae, diaDir + File.separator + "output");
+                CheckingClock cc = new CheckingClock(d.getIntervalBetweenChecks(), "/" + d.getDiaName() + "/", pathToFormoulae, outputFile + File.separator + "output");
                 map.put(d, cc);
             }
         } catch (IOException e) {

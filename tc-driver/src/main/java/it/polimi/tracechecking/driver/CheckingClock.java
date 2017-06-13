@@ -18,7 +18,7 @@ public class CheckingClock {
 
     public CheckingClock(int timeStepDurationInMinutes, String pathToTraces, String formula, String pathToOutput){
         timer = new Timer();
-        journal.info("Here is the adaptation clock!");
+        journal.info("Here is the checking clock!");
         task = new MTLLauncher(pathToTraces, formula, pathToOutput);
         timer.scheduleAtFixedRate(task, 1000, timeStepDurationInMinutes*60*1000);
     }
