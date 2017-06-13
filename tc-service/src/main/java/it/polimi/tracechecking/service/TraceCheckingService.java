@@ -1,5 +1,6 @@
 package it.polimi.tracechecking.service;
 
+import it.polimi.tracechecking.common.model.DIA;
 import it.polimi.tracechecking.driver.Config;
 import it.polimi.tracechecking.driver.Launcher;
 import it.polimi.tracechecking.driver.hdfsLogger;
@@ -113,9 +114,9 @@ public class TraceCheckingService {
         try {
             Launcher diaLauncher = applicationDrivers.get(this.getApplicationById(applicationId));
 
-        for (ComputeNode c : diaLauncher.getDia().getComputeNodes()) {
+        for (DIA c : diaLauncher.getModel().getDIAs()) {
 
-            toReturn.put(c.getId(), diaLauncher.getResults(c));
+            toReturn.put(c.getDiaName(), diaLauncher.getResults(c));
 
         }
         } catch (ApplicationNotFoundException e) {
