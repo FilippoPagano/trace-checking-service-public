@@ -42,7 +42,7 @@ public class Launcher {
                 Files.write(Paths.get(pathToFormoulae + File.separator + "formula_" + d.getDiaName()), d.getMtlFormulae(), Charset.forName("UTF-8"));
 
 
-                CheckingClock cc = new CheckingClock(d.getIntervalBetweenChecks(), "/" + d.getDiaName() + "/", pathToFormoulae, outputFile + File.separator + "output");
+                CheckingClock cc = new CheckingClock(d.getIntervalBetweenChecks(), "/" + d.getDiaName(), pathToFormoulae, outputFile + File.separator + "output");
                 map.put(d, cc);
             }
         } catch (IOException e) {
@@ -76,9 +76,9 @@ public class Launcher {
         for (String s : c.getMtlFormulae()) {
             String formula = s;
             if(map.get(c).getViolations(c, i) == 1)
-                results.put(s, true);
-            else
                 results.put(s, false);
+            else
+                results.put(s, true);
             i++;
         }
         return results;

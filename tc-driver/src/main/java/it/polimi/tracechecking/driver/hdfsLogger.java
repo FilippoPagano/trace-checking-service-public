@@ -38,14 +38,14 @@ public class hdfsLogger {
         }
     }
 
-    public void write(String appId, String computeNode, String content) {
+    public void write(String appId, String content) {
         Configuration config = new Configuration();
         config.set("dfs.client.block.write.replace-datanode-on-failure.policy", "NEVER"); //magic
 
         FileSystem fs;
         try {
             fs = FileSystem.get(new URI("hdfs://localhost:9000"), config);
-            Path filenamePath = new Path("/" + appId + "/" + computeNode + "/trace1");
+            Path filenamePath = new Path("/" + appId + "/trace1");
             if (!fs.exists(filenamePath)) {
                 fs.create(filenamePath, true);
                 fs.close();
@@ -90,7 +90,7 @@ public class hdfsLogger {
         }
     }
 
-    public void writeNewFile(String applicationId, String computeNode, String logFileText) {
+    public void writeNewFile(String applicationId, String logFileText) {
         Configuration config = new Configuration();
         config.set("dfs.client.block.write.replace-datanode-on-failure.policy", "NEVER"); //magic
 
@@ -98,11 +98,11 @@ public class hdfsLogger {
         try {
             fs = FileSystem.get(new URI("hdfs://localhost:9000"), config);
             Integer i = 1;
-            Path tentativePath = new Path("/" + applicationId + "/" + computeNode + "/trace" + i);
+            Path tentativePath = new Path("/" + applicationId + "/trace" + i);
 
             while (fs.exists(tentativePath)) {
                 i++;
-                tentativePath = new Path("/" + applicationId + "/" + computeNode + "/trace" + i);
+                tentativePath = new Path("/" + applicationId + "/trace" + i);
             }
             Path filenamePath = tentativePath;
             if (!fs.exists(filenamePath)) {
