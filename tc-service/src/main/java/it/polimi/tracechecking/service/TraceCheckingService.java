@@ -6,15 +6,14 @@ import it.polimi.tracechecking.driver.Launcher;
 import it.polimi.tracechecking.driver.hdfsLogger;
 import org.apache.hadoop.yarn.exceptions.ApplicationNotFoundException;
 import org.apache.log4j.BasicConfigurator;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Path("/trace-checking-service")
 public class TraceCheckingService {
@@ -55,7 +54,6 @@ public class TraceCheckingService {
     public String logEventFile(@PathParam("id") String applicationId, String input) {
         JSONObject jsonObj = new JSONObject(input);
         String logFileText = jsonObj.getString("logFileText");
-        hdfsLogger hdfsLogger = new hdfsLogger();
         hdfsLogger.writeNewFile(applicationId, logFileText);
         JSONObject ret = new JSONObject();
         ret.put("result", "ok");
@@ -69,7 +67,40 @@ public class TraceCheckingService {
     public String logEvent(@PathParam("id") String applicationId, String input) {
         JSONObject jsonObj = new JSONObject(input);
         String eventToLog = jsonObj.getString("eventToLog");
-        hdfsLogger hdfsLogger = new hdfsLogger();
+        hdfsLogger.write(applicationId, eventToLog);
+        JSONObject ret = new JSONObject();
+        ret.put("result", "ok");
+        return ret.toString();
+    }
+
+    @POST
+    @Path("/{id}/logMessage")
+    @Produces(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.TEXT_PLAIN)
+    public String logMessage(@PathParam("id") String applicationId, String input) {
+        JSONObject jsonObj = new JSONObject(input);
+        String messageID = jsonObj.getString("messageID");
+        String sender = jsonObj.getString("sender");
+        String senderRole = jsonObj.getString("senderRole");
+        String receiver = jsonObj.getString("receiver");
+        String receiverRole = jsonObj.getString("receiverRole");
+        String messageSubject = jsonObj.getString("messageSubject");
+        String messageSubjectRole = jsonObj.getString("messageSubjectRole");
+        List<String> formulae = new ArrayList<String>();
+        JSONArray jsonMainArr = jsonObj.getJSONArray("formulae");
+
+        String eventToLog = "message(" + messageID +
+                "); in_role(" + sender + "," + senderRole +
+                "); in_role(" + receiver + "," + receiverRole +
+                "); in_role(" + messageSubject + "," + messageSubjectRole;
+        if (jsonMainArr != null) {
+            for (int i = 0; i < jsonMainArr.length(); i++) {
+                eventToLog = eventToLog + "); contains(" + messageID + ", " + messageSubject + ", " + jsonMainArr.getString(i);
+            }
+        }
+        /*for (String formula : jsonMainArr.toList())
+            eventToLog = eventToLog + "); contains(" + messageID + "" + messageSubject+ formula;*/
+        eventToLog = eventToLog + "); send (" + sender + ", " + receiver + ", " + messageID + ")";
         hdfsLogger.write(applicationId, eventToLog);
         JSONObject ret = new JSONObject();
         ret.put("result", "ok");

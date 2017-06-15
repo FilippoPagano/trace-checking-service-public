@@ -14,6 +14,35 @@ $(document).ready(function () {
 		event.preventDefault();
 		// This cancels the event...
 	});
+
+	$('.moreMessages').click(function () {
+	    $('.messageLabel').last().clone().insertAfter($('.messageLabel').last());
+	});
+$('.messageLog').click(function () {
+var appID = $('#appIDmessage').val();
+var obj = {};
+obj.sender=$('#sender').val();
+obj.receiver=$('#receiver').val();
+obj.senderRole=$('#senderRole').val();
+obj.receiverRole=$('#receiverRole').val();
+obj.messageID=$('#messageID').val();
+obj.messageSubject=$('#messageSubject').val();
+obj.messageSubjectRole=$('#messageSubjectRole').val();
+obj.formulae=[];
+$('.message').each(function( index, formula ){
+    obj.formulae.push(formula.value);
+});
+var data=JSON.stringify(obj).toString();
+
+	$.ajax({
+				type : "POST",
+				url : 'http://localhost:8177/trace-checking-service/'+appID+'/logMessage',
+				data : data,
+contentType: "text/plain",
+crossDomain: true
+			}).fail(function(jqXHR, textStatus, errorThrown){console.log(jqXHR);alert(textStatus);alert(errorThrown);alert(jqXHR.responseText);})
+			.done(function (data){console.log(data);});
+});
 $('.logAppCNButton').click(function () {
 
 var obj = {};
@@ -27,10 +56,8 @@ var data=JSON.stringify(obj).toString();
 				data : data,
 contentType: "text/plain",
 crossDomain: true
-			}).fail(function(jqXHR, textStatus, errorThrown){console.log(jqXHR);alert(textStatus);alert(errorThrown);alert(jqXHR.responseText);}).done(function (data){console.log(data);
-			$('.list').append("<li>"+data.applicationId+"<span class='glyphicon glyphicon-remove'></span></li>");
-			rebind();
-			});
+			}).fail(function(jqXHR, textStatus, errorThrown){console.log(jqXHR);alert(textStatus);alert(errorThrown);alert(jqXHR.responseText);})
+			.done(function (data){console.log(data);});
 });
 $('.logFileAppCNButton').click(function () {
 
@@ -45,11 +72,10 @@ var data=JSON.stringify(obj).toString();
 				data : data,
 contentType: "text/plain",
 crossDomain: true
-			}).fail(function(jqXHR, textStatus, errorThrown){console.log(jqXHR);alert(textStatus);alert(errorThrown);alert(jqXHR.responseText);}).done(function (data){console.log(data);
-			$('.list').append("<li>"+data.applicationId+"<span class='glyphicon glyphicon-remove'></span></li>");
-			rebind();
-			});
-});
+			}).fail(function(jqXHR, textStatus, errorThrown){
+			console.log(jqXHR);alert(textStatus);alert(errorThrown);alert(jqXHR.responseText);
+             })
+			.done(function (data){console.log(data);});});
 	// This should fire your window opener...
 	$('.modelPasteButton').click(function () {
 		console.log('submit funcition is here');

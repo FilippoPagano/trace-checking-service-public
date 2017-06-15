@@ -32,6 +32,7 @@ public class Launcher {
             //ComputeNodePermissionMap = dia1.getComputeNodesWithPermission();
             for (DIA d : model1.getDIAs()) {
                 //Prepare dirs for each DIA
+                hdfsLogger.makeDir("/" + d.getDiaName());
                 String pathToFormoulae = outputDir + File.separator + d.getDiaName() + File.separator + "formulae";
                 String outputFile = outputDir + File.separator + d.getDiaName() + File.separator + "output";
                 File formulaeFile = new File(pathToFormoulae);

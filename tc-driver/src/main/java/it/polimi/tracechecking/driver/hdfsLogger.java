@@ -13,8 +13,32 @@ import java.net.URISyntaxException;
 /**
  * Created by Filippo on 01/06/17.
  */
-public class hdfsLogger {
-    public void write(String content) {
+public final class hdfsLogger {
+    private hdfsLogger() {
+    }
+
+    public static void makeDir(String path) {
+        Configuration config = new Configuration();
+        config.set("dfs.client.block.write.replace-datanode-on-failure.policy", "NEVER"); //magic
+
+        FileSystem fs;
+        try {
+            fs = FileSystem.get(new URI("hdfs://localhost:9000"), config);
+            Path filenamePath = new Path(path);
+            if (!fs.exists(filenamePath)) {
+                fs.mkdirs(filenamePath);
+                fs.close();
+                fs = FileSystem.get(new URI("hdfs://localhost:9000"), config);
+            }
+
+            fs.close();
+        } catch (IOException | URISyntaxException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    public static void write(String content) {
         Configuration config = new Configuration();
         config.set("dfs.client.block.write.replace-datanode-on-failure.policy", "NEVER"); //magic
 
@@ -38,7 +62,7 @@ public class hdfsLogger {
         }
     }
 
-    public void write(String appId, String content) {
+    public static void write(String appId, String content) {
         Configuration config = new Configuration();
         config.set("dfs.client.block.write.replace-datanode-on-failure.policy", "NEVER"); //magic
 
@@ -62,7 +86,7 @@ public class hdfsLogger {
         }
     }
 
-    public void writeFile(String path, String text) {
+    public static void writeFile(String path, String text) {
         Configuration config = new Configuration();
         config.set("dfs.client.block.write.replace-datanode-on-failure.policy", "NEVER"); //magic
 
@@ -90,7 +114,7 @@ public class hdfsLogger {
         }
     }
 
-    public void writeNewFile(String applicationId, String logFileText) {
+    public static void writeNewFile(String applicationId, String logFileText) {
         Configuration config = new Configuration();
         config.set("dfs.client.block.write.replace-datanode-on-failure.policy", "NEVER"); //magic
 

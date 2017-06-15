@@ -2,6 +2,6 @@
 DIAs:
 - !DIA
   diaName: myDia
-  intervalBetweenChecks: 1
+  intervalBetweenChecks: 5
   mtlFormulae:
-    - "<FORMULA>"
+    - -F-[0,1000000]p

@@ -34,6 +34,26 @@
         <small>Upload or paste model</small>
     </h1>
 </div>
+<div id="MessageForm"><label for="appIDmessage">App ID</label>
+    <input type="text" class="form-control" id="appIDmessage"><br>
+    <label for="sender">Sender</label>
+    <input type="text" class="form-control" id="sender"><br>
+    <label for="receiver">Receiver</label>
+    <input class="form-control" type="text" id="receiver"><br>
+    <label for="senderRole">Sender role</label>
+    <textarea class="form-control" id="senderRole"></textarea><br>
+    <label for="receiverRole">Receiver role</label>
+    <textarea class="form-control" id="receiverRole"></textarea><br>
+    <label for="messageID">Message ID</label>
+    <input class="form-control" type="text" id="messageID" rows="1"><br>
+    <label for="messageSubject">Message subject</label>
+    <input class="form-control" type="text" id="messageSubject" rows="1"><br>
+    <label for="messageSubjectRole">Message subject role</label>
+    <textarea class="form-control" id="messageSubjectRole" rows="1"></textarea><br>
+    <label class="messageLabel">Message<textarea class="form-control message" rows="1"></textarea></label>
+    <span class="glyphicon glyphicon-plus moreMessages"></span><br>
+    <button type="submit" class="btn btn-primary messageLog">Submit</button>
+</div>
 <div id="LogEventAppCN"><label for="appIdSingle">Paste app id here</label>
     <input type="text" class="form-control" id="appIdSingle" rows="1"></textarea><br>
     <label for="logTextAppCN">Paste log line here</label>
