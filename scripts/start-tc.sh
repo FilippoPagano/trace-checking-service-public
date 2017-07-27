@@ -7,7 +7,7 @@
 
 export HADOOP_HOME=$HOME/hadoop-2.6.0
 export SPARK_HOME=$HOME/spark-1.4.1-bin-hadoop2.6
-export HOSTNAME='hostname'
+export HOSTNAME=`hostname`
 
 $HADOOP_HOME/bin/hdfs namenode -format
 $HADOOP_HOME/sbin/start-dfs.sh
@@ -17,7 +17,7 @@ $HADOOP_HOME/bin/hdfs dfs -mkdir /user/$USER
 
 $SPARK_HOME/sbin/start-master.sh
 
-$SPARK_HOME/sbin/start-slave.sh $HOSTNAME:7077
+$SPARK_HOME/sbin/start-slave.sh spark://$HOSTNAME:7077
 
 sudo service apache2 start
 
