@@ -8,6 +8,8 @@
 
 #pass macchina virtuale: ok
 
+sudo apt-get install software-properties-common
+sudo apt-add-repository universe
 sudo apt-get update
 sudo apt-get install -y openjdk-8-jre openjdk-8-jdk apache2 maven git curl ssh
 
